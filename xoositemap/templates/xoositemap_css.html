@@ -1,0 +1,9 @@
+<style type="text/css">
+<{foreachq from=$sitemap item=module}>
+    <{foreachq from=$module.sitemap item=cssresult}>
+        .xoositemap-ico-item<{$cssresult.id}> {
+            background-image: url('<{$cssresult.image}>');
+        }
+    <{/foreach}>
+<{/foreach}>
+</style>

@@ -1,0 +1,31 @@
+<{includeq file="module:xoositemap|xoositemap_css.html"}>
+
+<{if $moduletitle != ''}>
+    <fieldset>
+        <legend><{$moduletitle}></legend>
+    </fieldset>
+<{/if}>
+
+<{if $welcome}>
+    <div class="xoositemaptMsg">
+        <{$xoositemap_config.welcome}>
+    </div>
+<{/if}>
+
+<{foreachq from=$sitemap item=module}>
+    <div class="searchModule">
+        <div class="searchIcon floatleft">
+            <img src="<{$module.image}>" alt="<{$module.name}>">
+        </div>
+        <div class="searchTitle floatleft">
+            <a href="<{$xoops_url}>/modules/<{$module.dirname}>" title="<{$module.name}>"><{$module.name}></a>
+        </div>
+        <div class="clear"></div>
+
+        <{if $xoositemap_config.xoositemap_subcat}>
+            <{includeq file="module:xoositemap|xoositemap_categories.html" category=$module.sitemap}>
+        <{else}>
+            <{includeq file="module:xoositemap|xoositemap_item.html" items=$module.sitemap}>
+        <{/if}>
+    </div>
+<{/foreach}>

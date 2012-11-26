@@ -1,0 +1,18 @@
+<{if count($category) != 0}>
+    <{foreach from=$category item=result}>
+        <{if !isset($result.uid)}>
+            <div class="searchItem">
+                <div class="bold">
+                    <a href="<{$result.url}>" title="<{$result.title}>">
+                    <i class="xoositemap-ico-category"></i>
+                    <{$result.title}></a>
+                </div>
+                <{includeq file="module:xoositemap|xoositemap_item.html" items=$result.item}>
+            </div>
+
+            <{includeq file="module:xoositemap|xoositemap_categories.html" category=$result.categories}>
+        <{else}>
+            <{includeq file="module:xoositemap|xoositemap_item.html" items=$category}>
+        <{/if}>
+    <{/foreach}>
+<{/if}>

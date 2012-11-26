@@ -1,0 +1,5 @@
+<{if count($module.sitemap) != 0}>
+    <{foreach from=$module.sitemap item=result}>
+        <{includeq file="module:xoositemap|xoositemap_item.html" item=$result}>
+    <{/foreach}>
+<{/if}>
