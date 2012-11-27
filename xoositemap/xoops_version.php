@@ -62,8 +62,6 @@ $modversion['extension'] = 0;
 $modversion['extension_module'][] = 'system';
 
 // Scripts to run upon installation or update
-$modversion['onInstall'] = 'install/install.php';
-$modversion['onUpdate']  = 'install/update.php';
 
 // JQuery
 $modversion['jquery'] = 1;
