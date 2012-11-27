@@ -1,9 +1,7 @@
 <style type="text/css">
-<{foreachq from=$sitemap item=module}>
-    <{foreachq from=$module.sitemap item=cssresult}>
-        .xoositemap-ico-item<{$cssresult.id}> {
-            background-image: url('<{$cssresult.image}>');
+    <{foreachq from=$sitemap item=cssmodule name=foo}>
+        .xoositemap-ico-module<{$smarty.foreach.foo.iteration}> {
+            background-image: url('<{$cssmodule.image}>');
         }
     <{/foreach}>
-<{/foreach}>
 </style>

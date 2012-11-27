@@ -12,20 +12,22 @@
     </div>
 <{/if}>
 
-<{foreachq from=$sitemap item=module}>
-    <div class="searchModule">
-        <div class="searchIcon floatleft">
-            <img src="<{$module.image}>" alt="<{$module.name}>">
-        </div>
-        <div class="searchTitle floatleft">
-            <a href="<{$xoops_url}>/modules/<{$module.dirname}>" title="<{$module.name}>"><{$module.name}></a>
-        </div>
-        <div class="clear"></div>
+<div class="tabbable">
+    <ul class="nav nav-tabs">
+        <{foreachq from=$sitemap item=module name=foo}>
+            <li<{if $smarty.foreach.foo.first}> class="active"<{/if}>><a href="#tab<{$smarty.foreach.foo.iteration}>" data-toggle="tab"><i class="xoositemap-ico-module<{$smarty.foreach.foo.iteration}>"></i><{$module.name}></a></li>
+        <{/foreach}>
+    </ul>
 
-        <{if $xoositemap_config.xoositemap_subcat}>
-            <{includeq file="module:xoositemap|xoositemap_categories.html" category=$module.sitemap}>
-        <{else}>
-            <{includeq file="module:xoositemap|xoositemap_item.html" items=$module.sitemap}>
-        <{/if}>
+    <div class="tab-content">
+        <{foreachq from=$sitemap item=module name=foo}>
+            <div class="tab-pane<{if $smarty.foreach.foo.first}> active<{/if}>" id="tab<{$smarty.foreach.foo.iteration}>">
+                <{if $xoositemap_config.xoositemap_subcat}>
+                    <{includeq file="module:xoositemap|xoositemap_categories.html" category=$module.sitemap}>
+                <{else}>
+                    <{includeq file="module:xoositemap|xoositemap_item.html" items=$module.sitemap}>
+                <{/if}>
+            </div>
+        <{/foreach}>
     </div>
-<{/foreach}>
+</div>

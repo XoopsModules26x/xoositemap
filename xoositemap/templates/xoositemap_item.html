@@ -1,5 +1,5 @@
 <{if count($items) != 0}>
-    <{foreach from=$items item=item}>
+    <{foreachq from=$items item=item}>
         <div class="searchSpace">
             <div class="bold"><a href="<{$item.url}>" title="<{$item.title}>"><{$item.title}></a></div>
             <span class='x-small'>

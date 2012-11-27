@@ -1,5 +1,5 @@
 <{if count($category) != 0}>
-    <{foreach from=$category item=result}>
+    <{foreachq from=$category item=result}>
         <{if !isset($result.uid)}>
             <div class="searchItem">
                 <div class="bold">
