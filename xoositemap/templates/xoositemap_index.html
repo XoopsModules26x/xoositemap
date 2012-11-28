@@ -15,7 +15,7 @@
 <div class="tabbable">
     <ul class="nav nav-tabs">
         <{foreachq from=$sitemap item=module name=foo}>
-            <li<{if $smarty.foreach.foo.first}> class="active"<{/if}>><a href="#tab<{$smarty.foreach.foo.iteration}>" data-toggle="tab"><i class="xoositemap-ico-module<{$smarty.foreach.foo.iteration}>"></i><{$module.name}></a></li>
+            <li<{if $smarty.foreach.foo.first}> class="active"<{/if}>><a href="#tab<{$smarty.foreach.foo.iteration}>" data-toggle="tab" title="<{$module.name}>"><i class="xoositemap-ico-module<{$smarty.foreach.foo.iteration}>"></i><{$module.name}></a></li>
         <{/foreach}>
     </ul>
 
