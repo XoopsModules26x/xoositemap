@@ -39,18 +39,18 @@ class XooSitemapPreferencesForm extends XoopsThemeForm
         $this->setExtra('enctype="multipart/form-data"');
 
         // main
-        $this->addElement( new XoopsFormRadioYN(_MI_XOO_CONFIG_MAIN, 'xoositemap_main', $xoositemap_main) );
+        $this->addElement( new XoopsFormRadioYN(_XOO_CONFIG_MAIN, 'xoositemap_main', $xoositemap_main) );
 
         // main
-        $this->addElement( new XoopsFormRadioYN(_MI_XOO_CONFIG_SUBCAT, 'xoositemap_subcat', $xoositemap_subcat) );
+        $this->addElement( new XoopsFormRadioYN(_XOO_CONFIG_SUBCAT, 'xoositemap_subcat', $xoositemap_subcat) );
 
         // welcome
-        $this->addElement( new XoopsFormTextArea(_MI_XOO_CONFIG_WELCOME, 'xoositemap_welcome', $xoositemap_welcome, 12, 12) );
+        $this->addElement( new XoopsFormTextArea(_XOO_CONFIG_WELCOME, 'xoositemap_welcome', $xoositemap_welcome, 12, 12) );
 
         // Modules
         $system_module = new SystemModule();
         $installed = $system_module->getModuleList();
-        $modules = new XoopsFormSelect(_MI_XOO_CONFIG_MODULES, 'xoositemap_module', $xoositemap_module, count($installed)-1, true);
+        $modules = new XoopsFormSelect(_XOO_CONFIG_MODULES, 'xoositemap_module', $xoositemap_module, count($installed)-1, true);
         foreach ($installed as $module ) {
             if ( $module->getVar('dirname') != 'system') {
                 if ( file_exists(XOOPS_ROOT_PATH . '/modules/' . $module->getVar('dirname') . '/include/plugin.xoositemap.php') || file_exists(XOOPS_ROOT_PATH . '/modules/xoositemap/plugins/' . $module->getVar('dirname') . '.php') ) {                    $modules->addOption($module->getVar('dirname'), $module->getVar('dirname') );                }

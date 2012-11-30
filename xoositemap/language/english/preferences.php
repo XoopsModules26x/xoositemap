@@ -17,8 +17,9 @@
  * @version         $Id$
  */
 
-define("_MI_XOO_CONFIG_WELCOME",              "Text to display in index page");
-define("_MI_XOO_CONFIG_MAIN",                 "Display pages in main menu");
-define("_MI_XOO_CONFIG_SUBCAT",               "Include subcategories");
-define("_MI_XOO_CONFIG_MODULES",              "Modules");
+if (!defined("_XOO_CONFIG_SAVED")) {    define("_XOO_CONFIG_SAVED",                "Configuration was saved");}
+define("_XOO_CONFIG_WELCOME",              "Text to display in index page");
+define("_XOO_CONFIG_MAIN",                 "Display pages in main menu");
+define("_XOO_CONFIG_SUBCAT",               "Include subcategories");
+define("_XOO_CONFIG_MODULES",              "Modules");
 ?>

@@ -29,7 +29,7 @@ switch ($op) {    case 'save':
     // Write configuration file
     $object = new XooSitemapPreferences();
     $object->writeConfig( $object->Prepare2Save() );
-    $xoops->redirect("preferences.php", 3, _MI_XOO_CONFIG_SAVED);
+    $xoops->redirect("preferences.php", 3, _XOO_CONFIG_SAVED);
     break;
     default:
     $form = $xoops->getModuleForm(null, 'preferences', 'xoositemap');

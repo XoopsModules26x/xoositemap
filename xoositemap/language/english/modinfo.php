@@ -24,6 +24,4 @@ define("_MI_XOO_SITEMAP_DESC",                 "XooFoo - Sitemap<br />Module for
 define("_MI_XOO_SITEMAP_INDEX",                "Index");
 define("_MI_XOO_SITEMAP_ABOUT",                "About");
 define("_MI_XOO_SITEMAP_PREFERENCES",          "Preferences");
-
-define("_MI_XOO_CONFIG_SAVED",                 "Configuration was saved");
 ?>
