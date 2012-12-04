@@ -6,27 +6,7 @@
     color:                 #049cd9;
     border:                2px solid #049cd9;
 }
-.errorMsg,.confirmMsg, .resultMsg  {
-    padding:               1em;
-    margin-bottom:         1em;
-    text-align:            center;
-    border:                2px solid #ddd;
-}
-.errorMsg {
-    background-color:      #fbe3e4;
-    color:                 #d12f19;
-    border-color:          #fbc2c4;
-}
-.confirmMsg {
-    background-color:      #fff6bf;
-    color:                 #817134;
-    border-color:          #ffd324;
-}
-.resultMsg {
-    background-color:      #e6efc2;
-    color:                 #529214;
-    border-color:          #c6d880;
-}
+/*========  Float ======== */
 .floatleft {
     float:                 left;
     margin:                0;
@@ -39,6 +19,7 @@
     padding-right:         0;
     border:                0;
 }
+/*========  Icons ======== */
 [class^="xoositemap-ico-"], [class*=" xoositemap-ico-"] {
     background-position:   0 0;
     background-repeat:     no-repeat;
