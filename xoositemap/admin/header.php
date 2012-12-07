@@ -40,10 +40,17 @@ XoopsLoad::load('system', 'system');
 $system = System::getInstance();
 
 $xoops = Xoops::getInstance();
-if ($script_name != 'about') {    $xoops->header('xoositemap_' . $script_name . '.html');} else {    $xoops->header();}
-
-$xoops->theme->addStylesheet('modules/xoositemap/css/moduladmin.css');
+if ($script_name != 'about') {
+    $xoops->header('xoositemap_' . $script_name . '.html');
+} else {
+    $xoops->header();
+}
+$xoops->theme()->addStylesheet('modules/xoositemap/css/moduladmin.css');
 
 $admin_page = new XoopsModuleAdmin();
-$admin_page->renderNavigation( basename($_SERVER['SCRIPT_NAME']) );
+if ($script_name != 'about' && $script_name != 'index') {
+    $admin_page->renderNavigation( basename($_SERVER['SCRIPT_NAME']) );
+} elseif ($script_name != 'index') {
+    $admin_page->displayNavigation( basename($_SERVER['SCRIPT_NAME']) );
+}
 ?>
