@@ -22,7 +22,7 @@
     <div class="tab-content">
         <{foreachq from=$sitemap item=module name=foo}>
             <div class="tab-pane<{if $smarty.foreach.foo.first}> active<{/if}>" id="tab<{$smarty.foreach.foo.iteration}>">
-                <{if $xoositemap_config.xoositemap_subcat}>
+                <{if $module.category}>
                     <{includeq file="module:xoositemap|xoositemap_categories.html" category=$module.sitemap}>
                 <{else}>
                     <{includeq file="module:xoositemap|xoositemap_item.html" items=$module.sitemap}>
