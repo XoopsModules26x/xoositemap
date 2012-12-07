@@ -42,10 +42,11 @@ $sitemap = array();
 foreach ($modules as $k => $mod) {    $module = $xoops->module->getByDirName($mod);
     if ( file_exists(XOOPS_ROOT_PATH . '/modules/' . $module->getVar('dirname') . '/include/plugin.xoositemap.php') ) {        include XOOPS_ROOT_PATH . '/modules/' . $module->getVar('dirname') . '/include/plugin.xoositemap.php';    } elseif (file_exists(XOOPS_ROOT_PATH . '/modules/xoositemap/plugins/' . $module->getVar('dirname') . '.php') ) {        include XOOPS_ROOT_PATH . '/modules/xoositemap/plugins/' . $module->getVar('dirname') . '.php';    }
 
-    if (  function_exists( $func = 'XooSitemap_' . ucfirst($module->getVar('dirname')) ) ) {        $datas = call_user_func($func, $Xoositemap_config['xoositemap_subcat']);        if ( count($datas) > 0 ) {            $sitemap[$k]['name']    = $module->getVar('name');
-            $sitemap[$k]['dirname'] = $module->getVar('dirname');
-            $sitemap[$k]['image']   = XOOPS_URL . '/modules/' . $module->getVar('dirname') . '/icons/logo_large.png';
-            $sitemap[$k]['sitemap'] = $datas;
+    if (  function_exists( $func = 'XooSitemap_' . ucfirst($module->getVar('dirname')) ) ) {        $sitemap[$k]['name']    = $module->getVar('name');
+        $sitemap[$k]['dirname'] = $module->getVar('dirname');
+        $sitemap[$k]['image']   = XOOPS_URL . '/modules/' . $module->getVar('dirname') . '/icons/logo_large.png';
+
+        $datas = call_user_func($func, $Xoositemap_config['xoositemap_subcat']);        if ( count($datas) > 0 ) {            $sitemap[$k]['sitemap'] = $datas;
         }
     }
 }
