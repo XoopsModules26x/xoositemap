@@ -46,7 +46,7 @@ foreach ($modules as $k => $mod) {    $module = $xoops->module->getByDirName($m
         $sitemap[$k]['dirname']  = $module->getVar('dirname');
         $sitemap[$k]['image']    = XOOPS_URL . '/modules/' . $module->getVar('dirname') . '/icons/logo_large.png';
 
-        $datas = call_user_func($func, &$Xoositemap_config['xoositemap_subcat']);        if ( count($datas) > 0 ) {            $sitemap[$k]['sitemap'] = $datas;
+        $datas = call_user_func($func, $Xoositemap_config['xoositemap_subcat']);        if ( count($datas) > 0 ) {            $sitemap[$k]['sitemap'] = $datas;
         }
         foreach ($datas as $data) {            if ( isset($data['category']) ) {                $sitemap[$k]['category'] = true;
                 break;            }        }
