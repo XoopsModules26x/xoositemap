@@ -35,7 +35,7 @@ class XooSitemapPreferencesForm extends XoopsThemeForm
      */
     public function PreferencesForm()
     {        extract( $this->_config );
-        parent::__construct('', "form_preferences", "preferences.php", 'post', true);
+        parent::__construct('', 'form_preferences', 'preferences.php', 'post', true);
         $this->setExtra('enctype="multipart/form-data"');
 
         // main
