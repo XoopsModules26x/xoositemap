@@ -38,34 +38,57 @@ class XooSitemapPreferencesForm extends XoopsThemeForm
         parent::__construct('', 'form_preferences', 'preferences.php', 'post', true);
         $this->setExtra('enctype="multipart/form-data"');
 
-        // main
-        $this->addElement( new XoopsFormRadioYN(_XOO_CONFIG_MAIN, 'xoositemap_main', $xoositemap_main) );
+        $tabtray = new XoopsFormTabTray('', 'uniqueid');
+
+        /**
+         * Main page
+         */
+        $tab1 = new XoopsFormTab(_XOO_CONFIG_MAINPAGE, 'tabid-1');
+        $tab1->addElement( new XoopsFormRadioYN(_XOO_CONFIG_MAIN, 'xoositemap_main', $xoositemap_main) );
 
         // main
-        $this->addElement( new XoopsFormRadioYN(_XOO_CONFIG_SUBCAT, 'xoositemap_subcat', $xoositemap_subcat) );
+        $tab1->addElement( new XoopsFormRadioYN(_XOO_CONFIG_SUBCAT, 'xoositemap_subcat', $xoositemap_subcat) );
 
         // welcome
-        $this->addElement( new XoopsFormTextArea(_XOO_CONFIG_WELCOME, 'xoositemap_welcome', $xoositemap_welcome, 12, 12) );
+        $tab1->addElement( new XoopsFormTextArea(_XOO_CONFIG_WELCOME, 'xoositemap_welcome', $xoositemap_welcome, 12, 12) );
 
-        // Modules
+        /**
+         * Main page
+         */
+        $tab2 = new XoopsFormTab(_XOO_CONFIG_MODULES, 'tabid-2');
         $system_module = new SystemModule();
         $installed = $system_module->getModuleList();
-        $modules = new XoopsFormSelect(_XOO_CONFIG_MODULES, 'xoositemap_module', $xoositemap_module, count($installed)-1, true);
+        $modules = new XoopsFormSelect(_XOO_CONFIG_MODULES_SELECT, 'xoositemap_module', $xoositemap_module, count($installed)-1, true);
         foreach ($installed as $module ) {
             if ( $module->getVar('dirname') != 'system') {
                 if ( file_exists(XOOPS_ROOT_PATH . '/modules/' . $module->getVar('dirname') . '/include/plugin.xoositemap.php') || file_exists(XOOPS_ROOT_PATH . '/modules/xoositemap/plugins/' . $module->getVar('dirname') . '.php') ) {                    $modules->addOption($module->getVar('dirname'), $module->getVar('dirname') );                }
             }
         }
-        $this->addElement( $modules );
+        $tab2->addElement( $modules );
 
-        // button
+        $tabtray->addElement($tab1);
+        $tabtray->addElement($tab2);
+        $this->addElement($tabtray);
+
+        /**
+         * Buttons
+         */
         $button_tray = new XoopsFormElementTray('', '');
         $button_tray->addElement(new XoopsFormHidden('op', 'save'));
-        $button_tray->addElement(new XoopsFormButton('', 'submit', _SUBMIT, 'submit'));
-        $button_tray->addElement(new XoopsFormButton('', 'reset', _RESET, 'reset'));
-        $cancel_send = new XoopsFormButton('', 'cancel', _CANCEL, 'button');
-        $cancel_send->setExtra("onclick='javascript:history.go(-1);'");
-        $button_tray->addElement($cancel_send);
+
+        $button = new XoopsFormButton('', 'submit', _SUBMIT, 'submit');
+        $button->setClass('btn btn-success');
+        $button_tray->addElement($button);
+
+        $button_2 = new XoopsFormButton('', 'reset', _RESET, 'reset');
+        $button_2->setClass('btn btn-warning');
+        $button_tray->addElement($button_2);
+
+        $button_3 = new XoopsFormButton('', 'cancel', _CANCEL, 'button');
+        $button_3->setExtra("onclick='javascript:history.go(-1);'");
+        $button_3->setClass('btn btn-danger');
+        $button_tray->addElement($button_3);
+
         $this->addElement($button_tray);
     }
 }
