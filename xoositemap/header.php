@@ -31,26 +31,35 @@ if ( isset( $_GET ) ){
     }
 }
 
-XoopsLoad::load('xoopreferences', 'xoositemap');
-$Xoositemap_config = XooSitemapPreferences::getInstance()->getConfig();
+$xoositemap_module = Xoositemap::getInstance();
+$Xoositemap_config = $xoositemap_module->LoadConfig();
 
 if ( $op != '') {    $modules[] = $op;} else {    $modules = $Xoositemap_config['xoositemap_module'];}
+$xoops = Xoops::getInstance();
 $xoops->header('xoositemap_index.html');
 $xoops->theme()->addStylesheet('modules/xoositemap/css/module.css');
 
 $sitemap = array();
-foreach ($modules as $k => $mod) {    $module = $xoops->module->getByDirName($mod);
-    if ( file_exists(XOOPS_ROOT_PATH . '/modules/' . $module->getVar('dirname') . '/include/plugin.xoositemap.php') ) {        include XOOPS_ROOT_PATH . '/modules/' . $module->getVar('dirname') . '/include/plugin.xoositemap.php';    } elseif (file_exists(XOOPS_ROOT_PATH . '/modules/xoositemap/plugins/' . $module->getVar('dirname') . '.php') ) {        include XOOPS_ROOT_PATH . '/modules/xoositemap/plugins/' . $module->getVar('dirname') . '.php';    }
+foreach ($modules as $k => $mod) {    $moduleObj = $xoops->module->getByDirName($mod);
 
-    if (  function_exists( $func = 'XooSitemap_' . ucfirst($module->getVar('dirname')) ) ) {        $sitemap[$k]['name']     = $module->getVar('name');
-        $sitemap[$k]['dirname']  = $module->getVar('dirname');
-        $sitemap[$k]['image']    = XOOPS_URL . '/modules/' . $module->getVar('dirname') . '/icons/logo_large.png';
+    $plugin = Xoops_Plugin::getPlugin($moduleObj->getVar('dirname'), 'xoositemap');
+    if (is_object($plugin)) {        $results = $plugin->Xoositemap($Xoositemap_config['xoositemap_subcat']);
 
-        $datas = call_user_func($func, $Xoositemap_config['xoositemap_subcat']);        if ( count($datas) > 0 ) {            $sitemap[$k]['sitemap'] = $datas;
+        $sitemap[$k]['name']     = $moduleObj->getVar('name');
+        $sitemap[$k]['dirname']  = $moduleObj->getVar('dirname');
+        $sitemap[$k]['image']    = XOOPS_URL . '/modules/' . $moduleObj->getVar('dirname') . '/icons/logo_large.png';
+
+        if ( count($results) > 0 ) {
+            $sitemap[$k]['sitemap'] = $results;
+
+            foreach ($results as $data) {
+                if ( isset($data['category']) ) {
+                    $sitemap[$k]['category'] = true;
+                    break;
+                }
+            }
         }
-        foreach ($datas as $data) {            if ( isset($data['category']) ) {                $sitemap[$k]['category'] = true;
-                break;            }        }
-    }
+    }
 }
 
 $xoops->tpl()->assign('moduletitle', $xoops->module->name() );

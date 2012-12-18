@@ -17,7 +17,15 @@
  * @version         $Id$
  */
 
-include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'header.php';
+defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
-include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footer.php';
+class XoositemapCorePreload extends XoopsPreloadItem
+{    static function eventCoreIncludeCommonEnd($args)
+    {
+        $path = dirname(dirname(__FILE__));
+        XoopsLoad::addMap(array(
+            'xoositemap' => $path . '/class/xoositemap.php',
+        ));
+    }
+}
 ?>

@@ -14,10 +14,9 @@
  * @package         Xoositemap
  * @since           2.6.0
  * @author          Laurent JEN (Aka DuGris)
- * @version         $Id$
  */
 
-include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'header.php';
-
-include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footer.php';
-?>
+interface XoositemapPluginInterface
+{
+    public function Xoositemap($subcategories);
+}

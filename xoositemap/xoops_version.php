@@ -70,9 +70,9 @@ $modversion['jquery'] = 1;
 $modversion['hasMain'] = 1;
 
 $xoops = Xoops::getInstance();
-if ( is_object($xoops->module) && $xoops->module->dirname() == 'xoositemap' && !$xoops->isAdminSide ) {    XoopsLoad::load('xoopreferences', 'xoositemap');
-    $xoositemap_config = XooSitemapPreferences::getInstance()->getConfig();
-    if ($xoositemap_config['xoositemap_main']) {        $i = 0;        foreach ($xoositemap_config['xoositemap_module'] as $k => $module ) {            $menu = $xoops->module->getByDirName($module);            $modversion['sub'][$i]['name']  = $menu->getVar('name');
+if ( is_object($xoops->module) && $xoops->module->dirname() == 'xoositemap' && !$xoops->isAdminSide ) {    $xoositemap_module = Xoositemap::getInstance();
+    $Xoositemap_config = $xoositemap_module->LoadConfig();
+    if ($Xoositemap_config['xoositemap_main']) {        $i = 0;        foreach ($Xoositemap_config['xoositemap_module'] as $k => $module ) {            $menu = $xoops->module->getByDirName($module);            $modversion['sub'][$i]['name']  = $menu->getVar('name');
             $modversion['sub'][$i]['url']   = 'index.php?op=' . $module;
             $i++;
         }

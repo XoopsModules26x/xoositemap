@@ -19,7 +19,7 @@
 
 include dirname(__FILE__) . '/header.php';
 
-$xoops->loadLanguage('preferences', 'xoositemap');
+$xoositemap_module->loadLanguage('preferences', 'xoositemap');
 
 switch ($op) {    case 'save':
     if (!$xoops->security()->check()) {
@@ -33,8 +33,7 @@ switch ($op) {    case 'save':
     break;
     default:
     $xoops->theme()->addStylesheet('modules/xoositemap/css/preferences.css');
-    $form = $xoops->getModuleForm(null, 'preferences', 'xoositemap');
-    $form->PreferencesForm();
+    $form = $xoositemap_module->getForm($xoositemap_config, 'preferences');
     $form->display();
 }
 include dirname(__FILE__) . '/footer.php';

@@ -33,8 +33,8 @@ if ( isset( $_GET ) ){
 
 $script_name = basename($_SERVER['SCRIPT_NAME'], '.php');
 
-XoopsLoad::load('xoopreferences', 'xoositemap');
-$Sitemap_config = XooSitemapPreferences::getInstance()->getConfig();
+$xoositemap_module = Xoositemap::getInstance();
+$xoositemap_config = $xoositemap_module->LoadConfig();
 
 XoopsLoad::load('system', 'system');
 $system = System::getInstance();

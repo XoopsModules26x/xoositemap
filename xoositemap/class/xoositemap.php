@@ -17,7 +17,24 @@
  * @version         $Id$
  */
 
-include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'header.php';
+defined('XOOPS_ROOT_PATH') or die('Restricted access');
 
-include dirname(__FILE__) . DIRECTORY_SEPARATOR . 'footer.php';
+class Xoositemap extends Xoops_Module_Abstract
+{
+    /**
+     * Init the module
+     *
+     * @return null|void
+     */
+    public function init()
+    {
+        $this->setDirname('xoositemap');
+    }
+
+    public function LoadConfig()
+    {
+        XoopsLoad::load('xoopreferences', $this->_dirname);
+        return XooSitemapPreferences::getInstance()->getConfig();
+    }
+}
 ?>

@@ -17,9 +17,6 @@
  * @version         $Id$
  */
 
-XoopsLoad::load('xoopreferences', 'xoositemap');
-$Sitemap_config = XooSitemapPreferences::getInstance()->getConfig();
-
 $i = 0;
 $adminmenu[$i]['title']   = _MI_XOO_SITEMAP_INDEX;
 $adminmenu[$i]['link']    = 'admin/index.php';

@@ -25,16 +25,8 @@ class XooSitemapPreferencesForm extends XoopsThemeForm
     /**
      * @param null $obj
      */
-    public function __construct()
-    {        $this->_config = XooSitemapPreferences::getInstance()->loadConfig();
-    }
-
-    /**
-     * Maintenance Form
-     * @return void
-     */
-    public function PreferencesForm()
-    {        extract( $this->_config );
+    public function __construct($config)
+    {        extract( $config );
         parent::__construct('', 'form_preferences', 'preferences.php', 'post', true);
         $this->setExtra('enctype="multipart/form-data"');
 
@@ -60,8 +52,8 @@ class XooSitemapPreferencesForm extends XoopsThemeForm
         $installed = $system_module->getModuleList();
         $modules = new XoopsFormSelect(_XOO_CONFIG_MODULES_SELECT, 'xoositemap_module', $xoositemap_module, count($installed)-1, true);
         foreach ($installed as $module ) {
-            if ( $module->getVar('dirname') != 'system') {
-                if ( file_exists(XOOPS_ROOT_PATH . '/modules/' . $module->getVar('dirname') . '/include/plugin.xoositemap.php') || file_exists(XOOPS_ROOT_PATH . '/modules/xoositemap/plugins/' . $module->getVar('dirname') . '.php') ) {                    $modules->addOption($module->getVar('dirname'), $module->getVar('dirname') );                }
+            $plugin = Xoops_Plugin::getPlugin($module->getVar('dirname'), 'xoositemap');
+            if (is_object($plugin)) {                $modules->addOption($module->getVar('dirname'), $module->getVar('dirname') );
             }
         }
         $tab2->addElement( $modules );
