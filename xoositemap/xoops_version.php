@@ -71,8 +71,8 @@ $modversion['hasMain'] = 1;
 
 $xoops = Xoops::getInstance();
 if ( is_object($xoops->module) && $xoops->module->dirname() == 'xoositemap' && !$xoops->isAdminSide ) {    $xoositemap_module = Xoositemap::getInstance();
-    $Xoositemap_config = $xoositemap_module->LoadConfig();
-    if ($Xoositemap_config['xoositemap_main']) {        $i = 0;        foreach ($Xoositemap_config['xoositemap_module'] as $k => $module ) {            $menu = $xoops->module->getByDirName($module);            $modversion['sub'][$i]['name']  = $menu->getVar('name');
+    $sitemap_config = $xoositemap_module->LoadConfig();
+    if ($sitemap_config['xoositemap_main']) {        $i = 0;        foreach ($sitemap_config['xoositemap_module'] as $k => $module ) {            $menu = $xoops->module->getByDirName($module);            $modversion['sub'][$i]['name']  = $menu->getVar('name');
             $modversion['sub'][$i]['url']   = 'index.php?op=' . $module;
             $i++;
         }

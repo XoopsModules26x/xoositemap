@@ -33,7 +33,7 @@ switch ($op) {    case 'save':
     break;
     default:
     $xoops->theme()->addStylesheet('modules/xoositemap/css/preferences.css');
-    $form = $xoositemap_module->getForm($xoositemap_config, 'preferences');
+    $form = $xoositemap_module->getForm($sitemap_config, 'preferences');
     $form->display();
 }
 include dirname(__FILE__) . '/footer.php';

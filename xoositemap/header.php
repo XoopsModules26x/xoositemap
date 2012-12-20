@@ -32,9 +32,9 @@ if ( isset( $_GET ) ){
 }
 
 $xoositemap_module = Xoositemap::getInstance();
-$Xoositemap_config = $xoositemap_module->LoadConfig();
+$sitemap_config = $xoositemap_module->LoadConfig();
 
-if ( $op != '') {    $modules[] = $op;} else {    $modules = $Xoositemap_config['xoositemap_module'];}
+if ( $op != '') {    $modules[] = $op;} else {    $modules = $sitemap_config['xoositemap_module'];}
 $xoops = Xoops::getInstance();
 $xoops->header('xoositemap_index.html');
 $xoops->theme()->addStylesheet('modules/xoositemap/css/module.css');
@@ -43,7 +43,7 @@ $sitemap = array();
 foreach ($modules as $k => $mod) {    $moduleObj = $xoops->module->getByDirName($mod);
 
     $plugin = Xoops_Plugin::getPlugin($moduleObj->getVar('dirname'), 'xoositemap');
-    if (is_object($plugin)) {        $results = $plugin->Xoositemap($Xoositemap_config['xoositemap_subcat']);
+    if (is_object($plugin)) {        $results = $plugin->Xoositemap($sitemap_config['xoositemap_subcat']);
 
         $sitemap[$k]['name']     = $moduleObj->getVar('name');
         $sitemap[$k]['dirname']  = $moduleObj->getVar('dirname');
@@ -63,6 +63,6 @@ foreach ($modules as $k => $mod) {    $moduleObj = $xoops->module->getByDirName
 }
 
 $xoops->tpl()->assign('moduletitle', $xoops->module->name() );
-$xoops->tpl()->assign('xoositemap_config', $Xoositemap_config );
+$xoops->tpl()->assign('xoositemap_config', $sitemap_config );
 $xoops->tpl()->assign('sitemap', $sitemap);
 ?>
