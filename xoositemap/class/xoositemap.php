@@ -29,6 +29,7 @@ class Xoositemap extends Xoops_Module_Abstract
     public function init()
     {
         $this->setDirname('xoositemap');
+        $this->loadLanguage('preferences');
     }
 
     public function LoadConfig()
