@@ -42,7 +42,7 @@ $xoops->theme()->addStylesheet('modules/xoositemap/css/module.css');
 $sitemap = array();
 foreach ($modules as $k => $mod) {    $moduleObj = $xoops->module->getByDirName($mod);
 
-    $plugin = Xoops_Plugin::getPlugin($moduleObj->getVar('dirname'), 'xoositemap');
+    $plugin = Xoops_Module_Plugin::getPlugin($moduleObj->getVar('dirname'), 'xoositemap');
     if (is_object($plugin)) {        $results = $plugin->Xoositemap($sitemap_config['xoositemap_subcat']);
 
         $sitemap[$k]['name']     = $moduleObj->getVar('name');

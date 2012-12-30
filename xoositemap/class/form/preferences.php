@@ -52,7 +52,7 @@ class XooSitemapPreferencesForm extends XoopsThemeForm
         $installed = $system_module->getModuleList();
         $modules = new XoopsFormSelect(_XOO_CONFIG_MODULES_SELECT, 'xoositemap_module', $xoositemap_module, count($installed)-1, true);
         foreach ($installed as $module ) {
-            $plugin = Xoops_Plugin::getPlugin($module->getVar('dirname'), 'xoositemap');
+            $plugin = Xoops_Module_Plugin::getPlugin($module->getVar('dirname'), 'xoositemap');
             if (is_object($plugin)) {                $modules->addOption($module->getVar('dirname'), $module->getVar('dirname') );
             }
         }
