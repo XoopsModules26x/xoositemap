@@ -50,4 +50,3 @@ class XoositemapMenusPlugin extends Xoops_Module_Plugin_Abstract implements Menu
         return $ret;
     }
 }
-
