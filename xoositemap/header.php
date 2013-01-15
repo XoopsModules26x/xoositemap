@@ -49,7 +49,7 @@ foreach ($modules as $k => $mod) {    $moduleObj = $xoops->module->getByDirName
         $sitemap[$k]['dirname']  = $moduleObj->getVar('dirname');
         $sitemap[$k]['image']    = XOOPS_URL . '/modules/' . $moduleObj->getVar('dirname') . '/icons/logo_large.png';
 
-        if ( count($results) > 0 ) {
+        if ( count($results) > 0 ) {            foreach (array_keys($results) as $i) {                $results[$i]['date'] = XoopsLocal::formatTimestamp($results[$i]['time'], 's');            }
             $sitemap[$k]['sitemap'] = $results;
 
             foreach ($results as $data) {

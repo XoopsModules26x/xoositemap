@@ -19,4 +19,8 @@
 interface XoositemapPluginInterface
 {
     public function Xoositemap($subcategories);
+
+/*
+    public function Xoositemap_xml($subcategories);
+*/
 }
