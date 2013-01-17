@@ -2,14 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
     <loc><{$smarty.const.XOOPS_URL}>/</loc>
-    <lastmod><{$lastmod}></lastmod>
+    <lastmod><{$modification}></lastmod>
     <priority>1.0</priority>
 </url>
 
 <{foreach item=module from=$modules}>
 <url>
-    <loc><{$smarty.const.XOOPS_URL}>/modules/<{$module}></loc>
-    <lastmod><{$lastmod}></lastmod>
+    <loc><{$smarty.const.XOOPS_URL}>/modules/<{$module.dirname}></loc>
+    <lastmod><{$module.date}></lastmod>
 </url>
 <{/foreach}>
 
