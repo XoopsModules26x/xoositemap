@@ -17,22 +17,23 @@
  * @version         $Id$
  */
 
-include dirname(__FILE__) . '/header.php';
+include __DIR__ . '/header.php';
 
-switch ($op) {    case 'save':
-    if (!$xoops->security()->check()) {
-        $xoops->redirect('preferences.php', 3, implode('<br />', $xoops->security()->getErrors()));
-    }
+switch ($op) {
+    case 'save':
+        if (!$xoops->security()->check()) {
+            $xoops->redirect('preferences.php', 3, implode('<br />', $xoops->security()->getErrors()));
+        }
 
-    // Write configuration file
-    $object = new XooSitemapPreferences();
-    $object->writeConfig( $object->Prepare2Save() );
-    $xoops->redirect('preferences.php', 3, _XOO_CONFIG_SAVED);
-    break;
-    default:
-    $xoops->theme()->addStylesheet('modules/xoositemap/css/preferences.css');
-    $form = $xoositemap_module->getForm($sitemap_config, 'preferences');
-    $form->display();
+        // Write configuration file
+        $object = new XooSitemapPreferences();
+        $object->writeConfig($object->Prepare2Save());
+        $xoops->redirect('preferences.php', 3, _XOO_CONFIG_SAVED);
+        break;
+
+    default:
+        $xoops->theme()->addStylesheet('modules/xoositemap/assets/css/preferences.css');
+        $form = $xoositemap_module->getForm($sitemap_config, 'preferences');
+        $form->display();
 }
-include dirname(__FILE__) . '/footer.php';
-?>
+include __DIR__ . '/footer.php';

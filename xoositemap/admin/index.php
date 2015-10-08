@@ -17,7 +17,6 @@
  * @version         $Id$
  */
 
-include dirname(__FILE__) . '/header.php';
+include __DIR__ . '/header.php';
 
-include dirname(__FILE__) . '/footer.php';
-?>
+include __DIR__ . '/footer.php';

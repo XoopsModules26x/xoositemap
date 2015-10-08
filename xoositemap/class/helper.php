@@ -14,13 +14,27 @@
  * @package         Xoositemap
  * @since           2.6.0
  * @author          Laurent JEN (Aka DuGris)
- * @version         $Id$
+ * @version         $Id: xoositemap.php 1396 2012-12-30 07:36:38Z DuGris $
  */
+//defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
-define('_MI_XOO_SITEMAP_NAME', 'XooFoo - Sitemap');
-define('_MI_XOO_SITEMAP_DESC', 'XooFoo - Sitemap<br />Module for Xoops 2.6.x ++');
+class Xoositemap extends Xoops\Module\Helper\HelperAbstract
+{
+    /**
+     * Init the module
+     *
+     * @return null|void
+     */
+    public function init()
+    {
+        $this->setDirname(basename(dirname(__DIR__)));
+        $this->loadLanguage('preferences');
+    }
 
-// Admin menu
-define('_MI_XOO_SITEMAP_INDEX', 'Index');
-define('_MI_XOO_SITEMAP_ABOUT', 'About');
-define('_MI_XOO_SITEMAP_PREFERENCES', 'Preferences');
+    public function LoadConfig()
+    {
+        XoopsLoad::load('xoopreferences', $this->_dirname);
+        return XooSitemapPreferences::getInstance()->getConfig();
+
+    }
+}

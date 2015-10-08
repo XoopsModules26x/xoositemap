@@ -1,5 +1,5 @@
 <?php
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
 return $config = array(
     'xoositemap_welcome' => '',
@@ -7,4 +7,3 @@ return $config = array(
     'xoositemap_subcat'  => 0,
     'xoositemap_module'  => array(),
 );
-?>

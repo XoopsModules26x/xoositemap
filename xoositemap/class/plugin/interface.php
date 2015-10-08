@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Xoositemap module
  *
@@ -15,12 +16,11 @@
  * @since           2.6.0
  * @author          Laurent JEN (Aka DuGris)
  */
-
 interface XoositemapPluginInterface
 {
     public function Xoositemap($subcategories);
 
-/*
-    public function Xoositemap_xml($subcategories);
-*/
+    /*
+        public function Xoositemap_xml($subcategories);
+    */
 }
