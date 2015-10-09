@@ -17,10 +17,9 @@
  * @version         $Id$
  */
 
-include dirname(__FILE__) . '/header.php';
+include __DIR__ . '/header.php';
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 $admin_page->displayAbout();
 
-include dirname(__FILE__) . '/footer.php';
-?>
+include __DIR__ . '/footer.php';

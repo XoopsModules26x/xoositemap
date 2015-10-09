@@ -17,7 +17,7 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') or die('Restricted access');
+defined('XOOPS_ROOT_PATH') || exit('Restricted access');
 
 class XooSitemapPreferences
 {
@@ -28,28 +28,34 @@ class XooSitemapPreferences
     private $module_dirname = 'xoositemap';
 
     public function __construct()
-    {        $xoops = Xoops::getInstance();
+    {
+        $xoops            = Xoops::getInstance();
         $this->configFile = 'config.' . $this->module_dirname . '.php';
 
         $this->configPath = XOOPS_VAR_PATH . '/configs/' . $this->module_dirname . '/';
 
         $this->basicConfig = $this->loadBasicConfig();
-        $this->config = @$this->loadConfig();
+        $this->config      = @$this->loadConfig();
 
-        if ( count($this->config) != count($this->basicConfig) ) {            $this->config = array_merge($this->basicConfig, $this->config);            $this->writeConfig( $this->config );
+        if (count($this->config) != count($this->basicConfig)) {
+            $this->config = array_merge($this->basicConfig, $this->config);
+            $this->writeConfig($this->config);
         }
     }
 
-    public function XooSitemapPreferences()
-    {        $this->__construct();    }
+//    public function XooSitemapPreferences()
+//    {
+//        $this->__construct();
+//    }
 
-    static public function getInstance()
+    public static function getInstance()
     {
         static $instance;
         if (!isset($instance)) {
-            $class = __CLASS__;
+            $class    = __CLASS__;
             $instance = new $class();
         }
+
         return $instance;
     }
 
@@ -63,14 +69,15 @@ class XooSitemapPreferences
      *
      * @return array
      */
-    public function loadConfig() {
-        if ( !$config = $this->readConfig() ) {
+    public function loadConfig()
+    {
+        if (!$config = $this->readConfig()) {
             $config = $this->loadBasicConfig();
-            $this->writeConfig($config );
+            $this->writeConfig($config);
         }
+
         return $config;
     }
-
 
     /**
      * XooSitemapPreferences::loadBasicConfig()
@@ -79,9 +86,10 @@ class XooSitemapPreferences
      */
     public function loadBasicConfig()
     {
-        if (file_exists($file_path = dirname(dirname( __FILE__ )) . '/include/' . $this->configFile)) {
+        if (file_exists($file_path = dirname(__DIR__) . '/include/' . $this->configFile)) {
             $config = include $file_path;
         }
+
         return $config;
     }
 
@@ -95,76 +103,87 @@ class XooSitemapPreferences
         $file_path = $this->configPath . $this->configFile;
         XoopsLoad::load('XoopsFile');
         $file = XoopsFile::getHandler('file', $file_path);
+
         return eval(@$file->read());
     }
 
     /**
      * XooSitemapPreferences::writeConfig()
      *
-     * @param string $filename
-     * @param array $config
+     * @param  string $filename
+     * @param  array  $config
+     *
      * @return array
      */
     public function writeConfig($config)
     {
-        if ($this->CreatePath($this->configPath) ) {
+        if ($this->CreatePath($this->configPath)) {
             $file_path = $this->configPath . $this->configFile;
             XoopsLoad::load('XoopsFile');
             $file = XoopsFile::getHandler('file', $file_path);
-            return $file->write( 'return ' . var_export($config, true) . ';');
+
+            return $file->write('return ' . var_export($config, true) . ';');
         }
     }
 
-    private function CreatePath( $pathname, $pathout = XOOPS_ROOT_PATH )
+    private function createPath($pathname, $pathout = XOOPS_ROOT_PATH)
     {
-        $xoops = Xoops::getInstance();
-        $pathname = substr( $pathname, strlen(XOOPS_ROOT_PATH) );
-        $pathname = str_replace( DIRECTORY_SEPARATOR, '/', $pathname );
+        $xoops    = Xoops::getInstance();
+        $pathname = substr($pathname, strlen(XOOPS_ROOT_PATH));
+        $pathname = str_replace(DIRECTORY_SEPARATOR, '/', $pathname);
 
-        $dest = $pathout;
-        $paths = explode( '/', $pathname );
+        $dest  = $pathout;
+        $paths = explode('/', $pathname);
 
-        foreach ( $paths as $path ) {
-            if ( !empty( $path ) ) {
+        foreach ($paths as $path) {
+            if (!empty($path)) {
                 $dest = $dest . '/' . $path;
-                if ( !is_dir( $dest ) ) {
-                    if ( !mkdir( $dest , 0755 ) ) {
+                if (!is_dir($dest)) {
+                    if (!mkdir($dest, 0755)) {
                         return false;
                     } else {
-                        $this->WriteIndex($xoops->path('uploads'), 'index.html', $dest);
+                        $this->writeIndex($xoops->path('uploads'), 'index.html', $dest);
                     }
                 }
             }
         }
+
         return true;
     }
 
-    private function WriteIndex( $folder_in, $source_file, $folder_out )
+    private function writeIndex($folder_in, $source_file, $folder_out)
     {
-        if ( !is_dir($folder_out) ) {
-            if ( !$this->CreatePath($folder_out) ) {
+        if (!is_dir($folder_out)) {
+            if (!$this->CreatePath($folder_out)) {
                 return false;
             }
         }
 
         // Simple copy for a file
-        if ( is_file($folder_in . '/' . $source_file) ) {
-            return copy($folder_in . '/' . $source_file, $folder_out . '/' . basename($source_file) );
+        if (is_file($folder_in . '/' . $source_file)) {
+            return copy($folder_in . '/' . $source_file, $folder_out . '/' . basename($source_file));
         }
+
         return false;
     }
 
-    public function Prepare2Save( $data = null, $module = true)
-    {        if ( !isset($data) ) {            $data = $_POST;        }
+    public function prepare2Save($data = null, $module = true)
+    {
+        if (!isset($data)) {
+            $data = $_POST;
+        }
 
         $config = array();
-        foreach ( array_keys($data) as $k) {
-            if ( is_array($data[$k]) ) {                $config[$k] = $this->Prepare2Save( $data[$k], false );            } else {                if ( strstr($k, $this->module_dirname . '_') || !$module ) {
+        foreach (array_keys($data) as $k) {
+            if (is_array($data[$k])) {
+                $config[$k] = $this->Prepare2Save($data[$k], false);
+            } else {
+                if (strstr($k, $this->module_dirname . '_') || !$module) {
                     $config[$k] = $data[$k];
                 }
             }
         }
+
         return $config;
     }
 }
-?>

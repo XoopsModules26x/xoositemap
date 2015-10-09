@@ -17,16 +17,16 @@
  * @version         $Id$
  */
 
-require_once dirname(dirname(dirname(dirname(__FILE__)))) . '/include/cp_header.php';
+require_once dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
 
 $op = '';
-if ( isset( $_POST ) ){
-    foreach ( $_POST as $k => $v )  {
+if (isset($_POST)) {
+    foreach ($_POST as $k => $v) {
         ${$k} = $v;
     }
 }
-if ( isset( $_GET ) ){
-    foreach ( $_GET as $k => $v )  {
+if (isset($_GET)) {
+    foreach ($_GET as $k => $v) {
         ${$k} = $v;
     }
 }
@@ -34,23 +34,22 @@ if ( isset( $_GET ) ){
 $script_name = basename($_SERVER['SCRIPT_NAME'], '.php');
 
 $xoositemap_module = Xoositemap::getInstance();
-$sitemap_config = $xoositemap_module->LoadConfig();
+$sitemap_config    = $xoositemap_module->LoadConfig();
 
 XoopsLoad::load('system', 'system');
 $system = System::getInstance();
 
 $xoops = Xoops::getInstance();
 if ($script_name != 'about') {
-    $xoops->header('xoositemap_' . $script_name . '.html');
+    $xoops->header('xoositemap_admin_' . $script_name . '.tpl');
 } else {
     $xoops->header();
 }
-$xoops->theme()->addStylesheet('modules/xoositemap/css/moduladmin.css');
+$xoops->theme()->addStylesheet('modules/xoositemap/assets/css/moduladmin.css');
 
-$admin_page = new XoopsModuleAdmin();
+$admin_page = new \Xoops\Module\Admin();
 if ($script_name != 'about' && $script_name != 'index') {
-    $admin_page->renderNavigation( basename($_SERVER['SCRIPT_NAME']) );
+    $admin_page->renderNavigation(basename($_SERVER['SCRIPT_NAME']));
 } elseif ($script_name != 'index') {
-    $admin_page->displayNavigation( basename($_SERVER['SCRIPT_NAME']) );
+    $admin_page->displayNavigation(basename($_SERVER['SCRIPT_NAME']));
 }
-?>
