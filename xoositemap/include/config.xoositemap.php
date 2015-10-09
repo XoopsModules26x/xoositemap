@@ -5,5 +5,5 @@ return $config = array(
     'xoositemap_welcome' => '',
     'xoositemap_main'    => 0,
     'xoositemap_subcat'  => 0,
-    'xoositemap_module'  => array(),
+    'xoositemap_module'  => array()
 );

@@ -41,7 +41,7 @@ $system = System::getInstance();
 
 $xoops = Xoops::getInstance();
 if ($script_name != 'about') {
-    $xoops->header('xoositemap_' . $script_name . '.tpl');
+    $xoops->header('xoositemap_admin_' . $script_name . '.tpl');
 } else {
     $xoops->header();
 }

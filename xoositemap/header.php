@@ -57,7 +57,7 @@ foreach ($modules as $k => $mod) {
 
         if (count($results) > 0) {
             foreach (array_keys($results) as $i) {
-                $results[$i]['date'] = XoopsLocal::formatTimestamp($results[$i]['time'], 's');
+                $results[$i]['date'] = XoopsLocale::formatTimestamp($results[$i]['time'], 's');
             }
             $sitemap[$k]['sitemap'] = $results;
 

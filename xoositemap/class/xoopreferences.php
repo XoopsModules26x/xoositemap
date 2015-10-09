@@ -126,7 +126,7 @@ class XooSitemapPreferences
         }
     }
 
-    private function CreatePath($pathname, $pathout = XOOPS_ROOT_PATH)
+    private function createPath($pathname, $pathout = XOOPS_ROOT_PATH)
     {
         $xoops    = Xoops::getInstance();
         $pathname = substr($pathname, strlen(XOOPS_ROOT_PATH));
@@ -142,7 +142,7 @@ class XooSitemapPreferences
                     if (!mkdir($dest, 0755)) {
                         return false;
                     } else {
-                        $this->WriteIndex($xoops->path('uploads'), 'index.html', $dest);
+                        $this->writeIndex($xoops->path('uploads'), 'index.html', $dest);
                     }
                 }
             }
@@ -151,7 +151,7 @@ class XooSitemapPreferences
         return true;
     }
 
-    private function WriteIndex($folder_in, $source_file, $folder_out)
+    private function writeIndex($folder_in, $source_file, $folder_out)
     {
         if (!is_dir($folder_out)) {
             if (!$this->CreatePath($folder_out)) {
@@ -167,7 +167,7 @@ class XooSitemapPreferences
         return false;
     }
 
-    public function Prepare2Save($data = null, $module = true)
+    public function prepare2Save($data = null, $module = true)
     {
         if (!isset($data)) {
             $data = $_POST;

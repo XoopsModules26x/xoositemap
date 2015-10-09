@@ -16,7 +16,7 @@
  * @author          Laurent JEN (Aka DuGris)
  */
 
-if (!defined("_XOO_CONFIG_SAVED")) {
+if (!defined('_XOO_CONFIG_SAVED')) {
     define('_XOO_CONFIG_SAVED', 'Configuration was saved');
 }
 define('_XOO_CONFIG_MAINPAGE', 'Main page');

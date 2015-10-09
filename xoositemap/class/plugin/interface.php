@@ -18,7 +18,11 @@
  */
 interface XoositemapPluginInterface
 {
-    public function Xoositemap($subcategories);
+    /**
+     * @param $subcategories
+     * @return mixed
+     */
+    public function xoositemap($subcategories);
 
     /*
         public function Xoositemap_xml($subcategories);

@@ -31,7 +31,7 @@ class Xoositemap extends Xoops\Module\Helper\HelperAbstract
         $this->loadLanguage('preferences');
     }
 
-    public function LoadConfig()
+    public function loadConfig()
     {
         XoopsLoad::load('xoopreferences', $this->_dirname);
         return XooSitemapPreferences::getInstance()->getConfig();

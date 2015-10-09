@@ -19,14 +19,20 @@
 
 use Xoops\Core\PreloadItem;
 
+/**
+ * Class XoositemapPreload
+ */
 class XoositemapPreload extends PreloadItem
 {
+    /**
+     * @param $args
+     */
     public static function eventCoreIncludeCommonEnd($args)
     {
         $path = dirname(__DIR__);
         XoopsLoad::addMap(
             array(
-                'xoositemap' => $path . '/class/helper.php',
+                'xoositemap' => $path . '/class/helper.php'
             )
         );
     }
