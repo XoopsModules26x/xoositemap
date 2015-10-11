@@ -17,8 +17,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
-
 class XoositemapMenusPlugin extends Xoops\Module\Plugin\PluginAbstract implements MenusPluginInterface
 {
     /**
@@ -37,12 +35,12 @@ class XoositemapMenusPlugin extends Xoops\Module\Plugin\PluginAbstract implement
         $ret = array();
         if (Xoops::getInstance()->isModule() && Xoops::getInstance()->module->getVar('dirname') == 'xoositemap') {
             $xoops             = Xoops::getInstance();
-            $xoositemap_module = Xoositemap::getInstance();
-            $sitemap_config    = $xoositemap_module->LoadConfig();
+            $xoositemapModule = Xoositemap::getInstance();
+            $sitemapConfig    = $xoositemapModule->loadConfig();
 
             $i = 0;
-            if ($sitemap_config['xoositemap_main']) {
-                foreach ($sitemap_config['xoositemap_module'] as $k => $module) {
+            if ($sitemapConfig['xoositemap_main']) {
+                foreach ($sitemapConfig['xoositemapModule'] as $k => $module) {
                     $menu            = $xoops->module->getByDirName($module);
                     $ret[$i]['name'] = $menu->getVar('name');
                     $ret[$i]['url']  = 'index.php?op=' . $module;

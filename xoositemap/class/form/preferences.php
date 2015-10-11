@@ -17,8 +17,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') || exit('Restricted access');
-
 class XooSitemapPreferencesForm extends Xoops\Form\ThemeForm
 {
     private $_config = array();
@@ -33,7 +31,7 @@ class XooSitemapPreferencesForm extends Xoops\Form\ThemeForm
         parent::__construct('', 'form_preferences', 'preferences.php', 'post', true);
         $this->setExtra('enctype="multipart/form-data"');
 
-        $tabtray = new Xoops\Form\TabTray('', 'uniqueid');
+        $tabTray = new Xoops\Form\TabTray('', 'uniqueid');
 
         /**
          * Main page
@@ -51,9 +49,9 @@ class XooSitemapPreferencesForm extends Xoops\Form\ThemeForm
          * Main page
          */
         $tab2          = new Xoops\Form\Tab(_XOO_CONFIG_MODULES, 'tabid-2');
-        $system_module = new SystemModule();
-        $installed     = $system_module->getModuleList();
-        $modules       = new Xoops\Form\Select(_XOO_CONFIG_MODULES_SELECT, 'xoositemap_module', $xoositemap_module, count($installed) - 1, true);
+        $systemModule = new SystemModule();
+        $installed     = $systemModule->getModuleList();
+        $modules       = new Xoops\Form\Select(_XOO_CONFIG_MODULES_SELECT, 'xoositemapModule', $xoositemapModule, count($installed) - 1, true);
         foreach ($installed as $module) {
             $plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'xoositemap');
             if (is_object($plugin)) {
@@ -62,29 +60,29 @@ class XooSitemapPreferencesForm extends Xoops\Form\ThemeForm
         }
         $tab2->addElement($modules);
 
-        $tabtray->addElement($tab1);
-        $tabtray->addElement($tab2);
-        $this->addElement($tabtray);
+        $tabTray->addElement($tab1);
+        $tabTray->addElement($tab2);
+        $this->addElement($tabTray);
 
         /**
          * Buttons
          */
-        $button_tray = new Xoops\Form\ElementTray('', '');
-        $button_tray->addElement(new Xoops\Form\Hidden('op', 'save'));
+        $buttonTray = new Xoops\Form\ElementTray('', '');
+        $buttonTray->addElement(new Xoops\Form\Hidden('op', 'save'));
 
-        $button = new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit');
-        $button->setClass('btn btn-success');
-        $button_tray->addElement($button);
+        $buttonSubmit = new Xoops\Form\Button('', 'submit', XoopsLocale::A_SUBMIT, 'submit');
+        $buttonSubmit->setClass('btn btn-success');
+        $buttonTray->addElement($buttonSubmit);
 
-        $button_2 = new Xoops\Form\Button('', 'reset', XoopsLocale::A_RESET, 'reset');
-        $button_2->setClass('btn btn-warning');
-        $button_tray->addElement($button_2);
+        $buttonReset = new Xoops\Form\Button('', 'reset', XoopsLocale::A_RESET, 'reset');
+        $buttonReset->setClass('btn btn-warning');
+        $buttonTray->addElement($buttonReset);
 
-        $button_3 = new Xoops\Form\Button('', 'cancel', XoopsLocale::A_CANCEL, 'button');
-        $button_3->setExtra("onclick='javascript:history.go(-1);'");
-        $button_3->setClass('btn btn-danger');
-        $button_tray->addElement($button_3);
+        $buttonCancel = new Xoops\Form\Button('', 'cancel', XoopsLocale::A_CANCEL, 'button');
+        $buttonCancel->setExtra("onclick='javascript:history.go(-1);'");
+        $buttonCancel->setClass('btn btn-danger');
+        $buttonTray->addElement($buttonCancel);
 
-        $this->addElement($button_tray);
+        $this->addElement($buttonTray);
     }
 }

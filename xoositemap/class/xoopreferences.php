@@ -17,8 +17,6 @@
  * @version         $Id$
  */
 
-defined('XOOPS_ROOT_PATH') || exit('Restricted access');
-
 class XooSitemapPreferences
 {
     public $config = array();
@@ -32,7 +30,7 @@ class XooSitemapPreferences
         $xoops            = Xoops::getInstance();
         $this->configFile = 'config.' . $this->module_dirname . '.php';
 
-        $this->configPath = XOOPS_VAR_PATH . '/configs/' . $this->module_dirname . '/';
+        $this->configPath = \XoopsBaseConfig::get('var-path') . '/configs/' . $this->module_dirname . '/';
 
         $this->basicConfig = $this->loadBasicConfig();
         $this->config      = @$this->loadConfig();
@@ -117,7 +115,7 @@ class XooSitemapPreferences
      */
     public function writeConfig($config)
     {
-        if ($this->CreatePath($this->configPath)) {
+        if ($this->createPath($this->configPath)) {
             $file_path = $this->configPath . $this->configFile;
             XoopsLoad::load('XoopsFile');
             $file = XoopsFile::getHandler('file', $file_path);
@@ -129,7 +127,7 @@ class XooSitemapPreferences
     private function createPath($pathname, $pathout = XOOPS_ROOT_PATH)
     {
         $xoops    = Xoops::getInstance();
-        $pathname = substr($pathname, strlen(XOOPS_ROOT_PATH));
+        $pathname = substr($pathname, strlen(\XoopsBaseConfig::get('root-path')));
         $pathname = str_replace(DIRECTORY_SEPARATOR, '/', $pathname);
 
         $dest  = $pathout;
@@ -154,7 +152,7 @@ class XooSitemapPreferences
     private function writeIndex($folder_in, $source_file, $folder_out)
     {
         if (!is_dir($folder_out)) {
-            if (!$this->CreatePath($folder_out)) {
+            if (!$this->createPath($folder_out)) {
                 return false;
             }
         }
@@ -176,7 +174,7 @@ class XooSitemapPreferences
         $config = array();
         foreach (array_keys($data) as $k) {
             if (is_array($data[$k])) {
-                $config[$k] = $this->Prepare2Save($data[$k], false);
+                $config[$k] = $this->prepare2Save($data[$k], false);
             } else {
                 if (strstr($k, $this->module_dirname . '_') || !$module) {
                     $config[$k] = $data[$k];
