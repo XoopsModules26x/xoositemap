@@ -27,13 +27,13 @@ switch ($op) {
 
         // Write configuration file
         $object = new XooSitemapPreferences();
-        $object->writeConfig($object->Prepare2Save());
+        $object->writeConfig($object->prepare2Save());
         $xoops->redirect('preferences.php', 3, _XOO_CONFIG_SAVED);
         break;
 
     default:
         $xoops->theme()->addStylesheet('modules/xoositemap/assets/css/preferences.css');
-        $form = $xoositemap_module->getForm($sitemap_config, 'preferences');
+        $form = $xoositemapModule->getForm($sitemapConfig, 'preferences');
         $form->display();
 }
 include __DIR__ . '/footer.php';

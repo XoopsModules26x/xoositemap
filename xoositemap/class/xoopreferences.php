@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Xoopreferences : Preferences Manager
  *
@@ -16,23 +17,23 @@
  * @author          Laurent JEN (Aka DuGris)
  * @version         $Id$
  */
-
-defined('XOOPS_ROOT_PATH') || exit('Restricted access');
-
 class XooSitemapPreferences
 {
-    public $config = array();
-    public $basicConfig = array();
-    public $configPath;
-    public $configFile;
+    public  $config         = array();
+    public  $basicConfig    = array();
+    public  $configPath;
+    public  $configFile;
     private $module_dirname = 'xoositemap';
 
+    /**
+     * XooSitemapPreferences constructor.
+     */
     public function __construct()
     {
         $xoops            = Xoops::getInstance();
         $this->configFile = 'config.' . $this->module_dirname . '.php';
 
-        $this->configPath = XOOPS_VAR_PATH . '/configs/' . $this->module_dirname . '/';
+        $this->configPath = \XoopsBaseConfig::get('var-path') . '/configs/' . $this->module_dirname . '/';
 
         $this->basicConfig = $this->loadBasicConfig();
         $this->config      = @$this->loadConfig();
@@ -43,10 +44,10 @@ class XooSitemapPreferences
         }
     }
 
-//    public function XooSitemapPreferences()
-//    {
-//        $this->__construct();
-//    }
+    //    public function XooSitemapPreferences()
+    //    {
+    //        $this->__construct();
+    //    }
 
     public static function getInstance()
     {
@@ -59,6 +60,9 @@ class XooSitemapPreferences
         return $instance;
     }
 
+    /**
+     * @return array
+     */
     public function getConfig()
     {
         return $this->config;
@@ -110,26 +114,32 @@ class XooSitemapPreferences
     /**
      * XooSitemapPreferences::writeConfig()
      *
-     * @param  string $filename
-     * @param  array  $config
-     *
+     * @param  array $config
      * @return array
+     * @internal param string $filename
      */
     public function writeConfig($config)
     {
-        if ($this->CreatePath($this->configPath)) {
+        if ($this->createPath($this->configPath)) {
             $file_path = $this->configPath . $this->configFile;
             XoopsLoad::load('XoopsFile');
             $file = XoopsFile::getHandler('file', $file_path);
 
             return $file->write('return ' . var_export($config, true) . ';');
         }
+
+        return null;
     }
 
+    /**
+     * @param              $pathname
+     * @param mixed|string $pathout
+     * @return bool
+     */
     private function createPath($pathname, $pathout = XOOPS_ROOT_PATH)
     {
         $xoops    = Xoops::getInstance();
-        $pathname = substr($pathname, strlen(XOOPS_ROOT_PATH));
+        $pathname = substr($pathname, strlen(\XoopsBaseConfig::get('root-path')));
         $pathname = str_replace(DIRECTORY_SEPARATOR, '/', $pathname);
 
         $dest  = $pathout;
@@ -142,7 +152,7 @@ class XooSitemapPreferences
                     if (!mkdir($dest, 0755)) {
                         return false;
                     } else {
-                        $this->writeIndex($xoops->path('uploads'), 'index.html', $dest);
+                        $this->writeIndex(\XoopsBaseConfig::get('uploads-path'), 'index.html', $dest);
                     }
                 }
             }
@@ -151,10 +161,16 @@ class XooSitemapPreferences
         return true;
     }
 
+    /**
+     * @param $folder_in
+     * @param $source_file
+     * @param $folder_out
+     * @return bool
+     */
     private function writeIndex($folder_in, $source_file, $folder_out)
     {
         if (!is_dir($folder_out)) {
-            if (!$this->CreatePath($folder_out)) {
+            if (!$this->createPath($folder_out)) {
                 return false;
             }
         }
@@ -167,6 +183,11 @@ class XooSitemapPreferences
         return false;
     }
 
+    /**
+     * @param null      $data
+     * @param bool|true $module
+     * @return array
+     */
     public function prepare2Save($data = null, $module = true)
     {
         if (!isset($data)) {
@@ -176,9 +197,9 @@ class XooSitemapPreferences
         $config = array();
         foreach (array_keys($data) as $k) {
             if (is_array($data[$k])) {
-                $config[$k] = $this->Prepare2Save($data[$k], false);
+                $config[$k] = $this->prepare2Save($data[$k], false);
             } else {
-                if (strstr($k, $this->module_dirname . '_') || !$module) {
+                if (false != strpos($k, $this->module_dirname . '_') || !$module) {
                     $config[$k] = $data[$k];
                 }
             }

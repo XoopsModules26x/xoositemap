@@ -31,13 +31,13 @@ if (isset($_GET)) {
     }
 }
 
-$xoositemap_module = Xoositemap::getInstance();
-$sitemap_config    = $xoositemap_module->LoadConfig();
+$xoositemapModule = Xoositemap::getInstance();
+$sitemapConfig    = $xoositemapModule->loadConfig();
 
 if ($op != '') {
     $modules[] = $op;
 } else {
-    $modules = $sitemap_config['xoositemap_module'];
+    $modules = $sitemapConfig['xoositemapModule'];
 }
 $xoops = Xoops::getInstance();
 $xoops->header('xoositemap_index.tpl');
@@ -49,11 +49,11 @@ foreach ($modules as $k => $mod) {
 
     $plugin = \Xoops\Module\Plugin::getPlugin($moduleObj->getVar('dirname'), 'xoositemap');
     if (is_object($plugin)) {
-        $results = $plugin->Xoositemap($sitemap_config['xoositemap_subcat']);
+        $results = $plugin->Xoositemap($sitemapConfig['xoositemap_subcat']);
 
         $sitemap[$k]['name']    = $moduleObj->getVar('name');
         $sitemap[$k]['dirname'] = $moduleObj->getVar('dirname');
-        $sitemap[$k]['image']   = XOOPS_URL . '/modules/' . $moduleObj->getVar('dirname') . '/assets/icons/logo_large.png';
+        $sitemap[$k]['image']   = \XoopsBaseConfig::get('url')  . '/modules/' . $moduleObj->getVar('dirname') . '/assets/icons/logo_large.png';
 
         if (count($results) > 0) {
             foreach (array_keys($results) as $i) {
@@ -73,5 +73,5 @@ foreach ($modules as $k => $mod) {
 }
 
 $xoops->tpl()->assign('moduletitle', $xoops->module->name());
-$xoops->tpl()->assign('xoositemap_config', $sitemap_config);
+$xoops->tpl()->assign('xoositemap_config', $sitemapConfig);
 $xoops->tpl()->assign('sitemap', $sitemap);

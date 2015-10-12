@@ -17,6 +17,8 @@
  * @version         $Id$
  */
 
+use Xoops\Core\Request;
+
 require_once dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
 
 $op = '';
@@ -31,16 +33,16 @@ if (isset($_GET)) {
     }
 }
 
-$script_name = basename($_SERVER['SCRIPT_NAME'], '.php');
+$script_name = basename(Request::getString('SCRIPT_NAME', '', 'SERVER'), '.php');
 
-$xoositemap_module = Xoositemap::getInstance();
-$sitemap_config    = $xoositemap_module->LoadConfig();
+$xoositemapModule = Xoositemap::getInstance();
+$sitemapConfig    = $xoositemapModule->loadConfig();
 
 XoopsLoad::load('system', 'system');
 $system = System::getInstance();
 
 $xoops = Xoops::getInstance();
-if ($script_name != 'about') {
+if ($script_name !== 'about') {
     $xoops->header('xoositemap_admin_' . $script_name . '.tpl');
 } else {
     $xoops->header();
@@ -48,8 +50,8 @@ if ($script_name != 'about') {
 $xoops->theme()->addStylesheet('modules/xoositemap/assets/css/moduladmin.css');
 
 $admin_page = new \Xoops\Module\Admin();
-if ($script_name != 'about' && $script_name != 'index') {
-    $admin_page->renderNavigation(basename($_SERVER['SCRIPT_NAME']));
-} elseif ($script_name != 'index') {
-    $admin_page->displayNavigation(basename($_SERVER['SCRIPT_NAME']));
+if ($script_name !== 'about' && $script_name !== 'index') {
+    $admin_page->renderNavigation(basename(Request::getString('SCRIPT_NAME', '', 'SERVER')));
+} elseif ($script_name !== 'index') {
+    $admin_page->displayNavigation(basename(Request::getString('SCRIPT_NAME', '', 'SERVER')));
 }
