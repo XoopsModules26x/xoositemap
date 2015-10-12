@@ -30,10 +30,7 @@ class XoositemapPreload extends PreloadItem
     public static function eventCoreIncludeCommonEnd($args)
     {
         $path = dirname(__DIR__);
-        XoopsLoad::addMap(
-            array(
-                'xoositemap' => $path . '/class/helper.php'
-            )
-        );
+        XoopsLoad::addMap(array(
+                              'xoositemap' => $path . '/class/helper.php'));
     }
 }

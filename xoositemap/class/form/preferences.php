@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Xoositemap module
  *
@@ -16,17 +17,17 @@
  * @author          Laurent JEN (Aka DuGris)
  * @version         $Id$
  */
-
 class XooSitemapPreferencesForm extends Xoops\Form\ThemeForm
 {
-    private $_config = array();
+    private $config = array();
 
     /**
-     * @param null $obj
+     * @param string $config
+     * @internal param null $obj
      */
     public function __construct($config)
     {
-            extract($config);
+        extract($config);
 
         parent::__construct('', 'form_preferences', 'preferences.php', 'post', true);
         $this->setExtra('enctype="multipart/form-data"');
@@ -48,10 +49,10 @@ class XooSitemapPreferencesForm extends Xoops\Form\ThemeForm
         /**
          * Main page
          */
-        $tab2          = new Xoops\Form\Tab(_XOO_CONFIG_MODULES, 'tabid-2');
+        $tab2         = new Xoops\Form\Tab(_XOO_CONFIG_MODULES, 'tabid-2');
         $systemModule = new SystemModule();
-        $installed     = $systemModule->getModuleList();
-        $modules       = new Xoops\Form\Select(_XOO_CONFIG_MODULES_SELECT, 'xoositemapModule', $xoositemapModule, count($installed) - 1, true);
+        $installed    = $systemModule->getModuleList();
+        $modules      = new Xoops\Form\Select(_XOO_CONFIG_MODULES_SELECT, 'xoositemapModule', $xoositemapModule, count($installed) - 1, true);
         foreach ($installed as $module) {
             $plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'xoositemap');
             if (is_object($plugin)) {

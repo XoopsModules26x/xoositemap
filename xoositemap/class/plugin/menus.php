@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Xoopartners module
  *
@@ -16,7 +17,6 @@
  * @author          Laurent JEN (Aka DuGris)
  * @version         $Id$
  */
-
 class XoositemapMenusPlugin extends Xoops\Module\Plugin\PluginAbstract implements MenusPluginInterface
 {
     /**
@@ -34,7 +34,7 @@ class XoositemapMenusPlugin extends Xoops\Module\Plugin\PluginAbstract implement
     {
         $ret = array();
         if (Xoops::getInstance()->isModule() && Xoops::getInstance()->module->getVar('dirname') == 'xoositemap') {
-            $xoops             = Xoops::getInstance();
+            $xoops            = Xoops::getInstance();
             $xoositemapModule = Xoositemap::getInstance();
             $sitemapConfig    = $xoositemapModule->loadConfig();
 

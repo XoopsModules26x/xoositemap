@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Xoopreferences : Preferences Manager
  *
@@ -16,15 +17,17 @@
  * @author          Laurent JEN (Aka DuGris)
  * @version         $Id$
  */
-
 class XooSitemapPreferences
 {
-    public $config = array();
-    public $basicConfig = array();
-    public $configPath;
-    public $configFile;
+    public  $config         = array();
+    public  $basicConfig    = array();
+    public  $configPath;
+    public  $configFile;
     private $module_dirname = 'xoositemap';
 
+    /**
+     * XooSitemapPreferences constructor.
+     */
     public function __construct()
     {
         $xoops            = Xoops::getInstance();
@@ -41,10 +44,10 @@ class XooSitemapPreferences
         }
     }
 
-//    public function XooSitemapPreferences()
-//    {
-//        $this->__construct();
-//    }
+    //    public function XooSitemapPreferences()
+    //    {
+    //        $this->__construct();
+    //    }
 
     public static function getInstance()
     {
@@ -57,6 +60,9 @@ class XooSitemapPreferences
         return $instance;
     }
 
+    /**
+     * @return array
+     */
     public function getConfig()
     {
         return $this->config;
@@ -108,10 +114,9 @@ class XooSitemapPreferences
     /**
      * XooSitemapPreferences::writeConfig()
      *
-     * @param  string $filename
-     * @param  array  $config
-     *
+     * @param  array $config
      * @return array
+     * @internal param string $filename
      */
     public function writeConfig($config)
     {
@@ -122,8 +127,15 @@ class XooSitemapPreferences
 
             return $file->write('return ' . var_export($config, true) . ';');
         }
+
+        return null;
     }
 
+    /**
+     * @param              $pathname
+     * @param mixed|string $pathout
+     * @return bool
+     */
     private function createPath($pathname, $pathout = XOOPS_ROOT_PATH)
     {
         $xoops    = Xoops::getInstance();
@@ -140,7 +152,7 @@ class XooSitemapPreferences
                     if (!mkdir($dest, 0755)) {
                         return false;
                     } else {
-                        $this->writeIndex($xoops->path('uploads'), 'index.html', $dest);
+                        $this->writeIndex(\XoopsBaseConfig::get('uploads-path'), 'index.html', $dest);
                     }
                 }
             }
@@ -149,6 +161,12 @@ class XooSitemapPreferences
         return true;
     }
 
+    /**
+     * @param $folder_in
+     * @param $source_file
+     * @param $folder_out
+     * @return bool
+     */
     private function writeIndex($folder_in, $source_file, $folder_out)
     {
         if (!is_dir($folder_out)) {
@@ -165,6 +183,11 @@ class XooSitemapPreferences
         return false;
     }
 
+    /**
+     * @param null      $data
+     * @param bool|true $module
+     * @return array
+     */
     public function prepare2Save($data = null, $module = true)
     {
         if (!isset($data)) {
@@ -176,7 +199,7 @@ class XooSitemapPreferences
             if (is_array($data[$k])) {
                 $config[$k] = $this->prepare2Save($data[$k], false);
             } else {
-                if (strstr($k, $this->module_dirname . '_') || !$module) {
+                if (false != strpos($k, $this->module_dirname . '_') || !$module) {
                     $config[$k] = $data[$k];
                 }
             }

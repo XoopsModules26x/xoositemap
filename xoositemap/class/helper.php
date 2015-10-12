@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Xoositemap module
  *
@@ -16,8 +17,6 @@
  * @author          Laurent JEN (Aka DuGris)
  * @version         $Id: xoositemap.php 1396 2012-12-30 07:36:38Z DuGris $
  */
-//defined('XOOPS_ROOT_PATH') || exit('Restricted access');
-
 class Xoositemap extends Xoops\Module\Helper\HelperAbstract
 {
     /**
@@ -31,9 +30,13 @@ class Xoositemap extends Xoops\Module\Helper\HelperAbstract
         $this->loadLanguage('preferences');
     }
 
+    /**
+     * @return mixed
+     */
     public function loadConfig()
     {
         XoopsLoad::load('xoopreferences', $this->_dirname);
+
         return XooSitemapPreferences::getInstance()->getConfig();
 
     }
