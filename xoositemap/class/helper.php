@@ -15,7 +15,6 @@
  * @package         Xoositemap
  * @since           2.6.0
  * @author          Laurent JEN (Aka DuGris)
- * @version         $Id: xoositemap.php 1396 2012-12-30 07:36:38Z DuGris $
  */
 class Xoositemap extends Xoops\Module\Helper\HelperAbstract
 {

@@ -14,7 +14,6 @@
  * @package         Xoositemap
  * @since           2.6.0
  * @author          Laurent JEN (Aka DuGris)
- * @version         $Id: core.php 1342 2012-12-18 12:09:50Z DuGris $
  */
 
 use Xoops\Core\PreloadItem;
