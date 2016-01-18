@@ -15,7 +15,6 @@
  * @package         Xoopartners
  * @since           2.6.0
  * @author          Laurent JEN (Aka DuGris)
- * @version         $Id$
  */
 class XoositemapMenusPlugin extends Xoops\Module\Plugin\PluginAbstract implements MenusPluginInterface
 {

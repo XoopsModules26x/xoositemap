@@ -14,13 +14,6 @@
  * @package         Xoositemap
  * @since           2.6.0
  * @author          Laurent JEN (Aka DuGris)
- * @version         $Id$
  */
 
-define('_MI_XOO_SITEMAP_NAME', 'XooFoo - Sitemap');
-define('_MI_XOO_SITEMAP_DESC', 'XooFoo - Sitemap<br />Module for Xoops 2.6.x ++');
-
-// Admin menu
-define('_MI_XOO_SITEMAP_INDEX', 'Index');
-define('_MI_XOO_SITEMAP_ABOUT', 'About');
-define('_MI_XOO_SITEMAP_PREFERENCES', 'Preferences');
+$xoops->footer();

@@ -14,23 +14,10 @@
  * @package         Xoositemap
  * @since           2.6.0
  * @author          Laurent JEN (Aka DuGris)
- * @version         $Id: core.php 1342 2012-12-18 12:09:50Z DuGris $
  */
 
-use Xoops\Core\PreloadItem;
-
-/**
- * Class XoositemapPreload
- */
-class XoositemapPreload extends PreloadItem
-{
-    /**
-     * @param $args
-     */
-    public static function eventCoreIncludeCommonEnd($args)
-    {
-        $path = dirname(__DIR__);
-        XoopsLoad::addMap(array(
-                              'xoositemap' => $path . '/class/helper.php'));
-    }
+if (basename(Request::getString('SCRIPT_NAME', '', 'SERVER')) === 'index.php') {
+    $admin_page->displayIndex();
 }
+
+$xoops->footer();

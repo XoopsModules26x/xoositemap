@@ -14,9 +14,8 @@
  * @package         Xoositemap
  * @since           2.6.0
  * @author          Laurent JEN (Aka DuGris)
- * @version         $Id$
  */
 
-include __DIR__ . '/header.php';
+include __DIR__ .  '/header.php';
 
-include __DIR__ . '/footer.php';
+include __DIR__ .  '/footer.php';

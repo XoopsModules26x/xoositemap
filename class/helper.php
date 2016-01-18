@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Xoositemap module
  *
@@ -14,11 +15,28 @@
  * @package         Xoositemap
  * @since           2.6.0
  * @author          Laurent JEN (Aka DuGris)
- * @version         $Id$
  */
+class Xoositemap extends Xoops\Module\Helper\HelperAbstract
+{
+    /**
+     * Init the module
+     *
+     * @return null|void
+     */
+    public function init()
+    {
+        $this->setDirname(basename(dirname(__DIR__)));
+        $this->loadLanguage('preferences');
+    }
 
-if (basename(Request::getString('SCRIPT_NAME', '', 'SERVER')) === 'index.php') {
-    $admin_page->displayIndex();
+    /**
+     * @return mixed
+     */
+    public function loadConfig()
+    {
+        XoopsLoad::load('xoopreferences', $this->_dirname);
+
+        return XooSitemapPreferences::getInstance()->getConfig();
+
+    }
 }
-
-$xoops->footer();

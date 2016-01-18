@@ -14,23 +14,25 @@
  * @package         Xoositemap
  * @since           2.6.0
  * @author          Laurent JEN (Aka DuGris)
- * @version         $Id$
  */
 
-$i                      = 0;
-$adminmenu[$i]['title'] = _MI_XOO_SITEMAP_INDEX;
-$adminmenu[$i]['link']  = 'admin/index.php';
-$adminmenu[$i]['icon']  = 'home.png';
+include __DIR__ . '/header.php';
 
-$xoops = Xoops::getInstance();
-if ($xoops->isAdmin()) {
-    ++$i;
-    $adminmenu[$i]['title'] = _MI_XOO_SITEMAP_PREFERENCES;
-    $adminmenu[$i]['link']  = 'admin/preferences.php';
-    $adminmenu[$i]['icon']  = 'administration.png';
+switch ($op) {
+    case 'save':
+        if (!$xoops->security()->check()) {
+            $xoops->redirect('preferences.php', 3, implode('<br />', $xoops->security()->getErrors()));
+        }
+
+        // Write configuration file
+        $object = new XooSitemapPreferences();
+        $object->writeConfig($object->prepare2Save());
+        $xoops->redirect('preferences.php', 3, _XOO_CONFIG_SAVED);
+        break;
+
+    default:
+        $xoops->theme()->addStylesheet('modules/xoositemap/assets/css/preferences.css');
+        $form = $xoositemapModule->getForm($sitemapConfig, 'preferences');
+        $form->display();
 }
-
-++$i;
-$adminmenu[$i]['title'] = _MI_XOO_SITEMAP_ABOUT;
-$adminmenu[$i]['link']  = 'admin/about.php';
-$adminmenu[$i]['icon']  = 'about.png';
+include __DIR__ . '/footer.php';
