@@ -14,8 +14,8 @@
  * @package         Xoositemap
  * @since           2.6.0
  * @author          Laurent JEN (Aka DuGris)
+ * @version         $Id: core.php 1342 2012-12-18 12:09:50Z DuGris $
  */
-
 use Xoops\Core\PreloadItem;
 
 /**
@@ -28,8 +28,6 @@ class XoositemapPreload extends PreloadItem
      */
     public static function eventCoreIncludeCommonEnd($args)
     {
-        $path = dirname(__DIR__);
-        XoopsLoad::addMap(array(
-                              'xoositemap' => $path . '/class/helper.php'));
+        require_once __DIR__ . '/autoloader.php';
     }
 }

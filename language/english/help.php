@@ -14,8 +14,8 @@
  * @package         Xoositemap
  * @since           2.6.0
  * @author          Laurent JEN (Aka DuGris)
+ * @version         $Id$
  */
-
 define('_HELP_DESCRIPTION_TITLE', 'Description');
 define('_HELP_DEVELOPER_TITLE', 'Developer');
 
@@ -30,7 +30,10 @@ define('_HELP_INSTALL_CONTENT', 'Extra, or non-core, modules are usually downloa
 ');
 
 define('_HELP_UNINSTALL_TITLE', 'Uninstall');
-define('_HELP_UNINSTALL_CONTENT', 'This year, the focus was on new games to play on those machines, so those of us who attended E3 at the Los Angeles Convention Center this week had a lot more fun. And the competition is far from over. Here are some winners and losers from the video-game industry\'s biggest convention.');
+define(
+    '_HELP_UNINSTALL_CONTENT',
+    'This year, the focus was on new games to play on those machines, so those of us who attended E3 at the Los Angeles Convention Center this week had a lot more fun. And the competition is far from over. Here are some winners and losers from the video-game industry\'s biggest convention.'
+);
 
 define('_HELP_TUTORIAL_TITLE', 'Tutorial');
 define('_HELP_TUTORIAL_CONTENT', 'Coming soon');

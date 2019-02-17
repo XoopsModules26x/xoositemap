@@ -1,5 +1,7 @@
 <?php
 
+namespace XoopsModules\Xoositemap\Plugin;
+
 /**
  * Xoopartners module
  *
@@ -15,8 +17,9 @@
  * @package         Xoopartners
  * @since           2.6.0
  * @author          Laurent JEN (Aka DuGris)
+ * @version         $Id$
  */
-class XoositemapMenusPlugin extends Xoops\Module\Plugin\PluginAbstract implements MenusPluginInterface
+class MenusPlugin extends \Xoops\Module\Plugin\PluginAbstract implements \MenusPluginInterface
 {
     /**
      * expects an array of array containing:
@@ -31,18 +34,18 @@ class XoositemapMenusPlugin extends Xoops\Module\Plugin\PluginAbstract implement
      */
     public function subMenus()
     {
-        $ret = array();
-        if (Xoops::getInstance()->isModule() && Xoops::getInstance()->module->getVar('dirname') == 'xoositemap') {
-            $xoops            = Xoops::getInstance();
-            $xoositemapModule = Xoositemap::getInstance();
-            $sitemapConfig    = $xoositemapModule->loadConfig();
+        $ret = [];
+        if (\Xoops::getInstance()->isModule() && 'xoositemap' == \Xoops::getInstance()->module->getVar('dirname')) {
+            $xoops = \Xoops::getInstance();
+            $helper = \XoopsModules\Xoositemap\Helper::getInstance();
+            $sitemapConfig = $helper->loadConfig();
 
             $i = 0;
             if ($sitemapConfig['xoositemap_main']) {
                 foreach ($sitemapConfig['xoositemapModule'] as $k => $module) {
-                    $menu            = $xoops->module->getByDirName($module);
+                    $menu = $xoops->module->getByDirname($module);
                     $ret[$i]['name'] = $menu->getVar('name');
-                    $ret[$i]['url']  = 'index.php?op=' . $module;
+                    $ret[$i]['url'] = 'index.php?op=' . $module;
                     ++$i;
                 }
             }

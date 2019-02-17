@@ -1,5 +1,7 @@
 <?php
 
+namespace XoopsModules\Xoositemap\Plugin;
+
 /**
  * Xoositemap module
  *
@@ -16,7 +18,7 @@
  * @since           2.6.0
  * @author          Laurent JEN (Aka DuGris)
  */
-interface XoositemapPluginInterface
+interface PluginInterface
 {
     /**
      * @param $subcategories

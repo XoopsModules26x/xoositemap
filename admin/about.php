@@ -14,8 +14,8 @@
  * @package         Xoositemap
  * @since           2.6.0
  * @author          Laurent JEN (Aka DuGris)
+ * @version         $Id$
  */
-
 include __DIR__ . '/header.php';
 
 $admin_page = new \Xoops\Module\Admin();

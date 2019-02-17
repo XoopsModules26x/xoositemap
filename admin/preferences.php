@@ -14,25 +14,27 @@
  * @package         Xoositemap
  * @since           2.6.0
  * @author          Laurent JEN (Aka DuGris)
+ * @version         $Id$
  */
+use XoopsModules\Xoositemap\Form;
 
 include __DIR__ . '/header.php';
 
 switch ($op) {
     case 'save':
         if (!$xoops->security()->check()) {
-            $xoops->redirect('preferences.php', 3, implode('<br />', $xoops->security()->getErrors()));
+            $xoops->redirect('preferences.php', 3, implode('<br>', $xoops->security()->getErrors()));
         }
 
         // Write configuration file
-        $object = new XooSitemapPreferences();
+        $object = new \XoopsModules\Xoositemap\Preferences();
         $object->writeConfig($object->prepare2Save());
         $xoops->redirect('preferences.php', 3, _XOO_CONFIG_SAVED);
         break;
-
     default:
         $xoops->theme()->addStylesheet('modules/xoositemap/assets/css/preferences.css');
-        $form = $xoositemapModule->getForm($sitemapConfig, 'preferences');
+//        $form = $helper->getForm($sitemapConfig, 'preferences');
+        $form = new Form\PreferencesForm($sitemapConfig);
         $form->display();
 }
 include __DIR__ . '/footer.php';
