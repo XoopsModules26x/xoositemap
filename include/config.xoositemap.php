@@ -1,7 +1,8 @@
 <?php
 
-return $config = array(
+return $config = [
     'xoositemap_welcome' => '',
-    'xoositemap_main'    => 0,
-    'xoositemap_subcat'  => 0,
-    'xoositemapModule'   => array());
+    'xoositemap_main' => 0,
+    'xoositemap_subcat' => 0,
+    'xoositemapModule' => [],
+];

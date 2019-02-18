@@ -1,5 +1,7 @@
 <?php
 
+namespace XoopsModules\Xoositemap;
+
 /**
  * Xoopreferences : Preferences Manager
  *
@@ -10,32 +12,33 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (https://xoops.org)
  * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @package         Xoositemap
  * @since           2.6.0
  * @author          Laurent JEN (Aka DuGris)
+
  */
-class XooSitemapPreferences
+class Preferences
 {
-    public  $config         = array();
-    public  $basicConfig    = array();
-    public  $configPath;
-    public  $configFile;
-    private $module_dirname = 'xoositemap';
+    public $config = [];
+    public $basicConfig = [];
+    public $configPath;
+    public $configFile;
+    private $moduleDirName = 'xoositemap';
 
     /**
-     * XooSitemapPreferences constructor.
+     * Xoositemap\Preferences constructor.
      */
     public function __construct()
     {
-        $xoops            = Xoops::getInstance();
-        $this->configFile = 'config.' . $this->module_dirname . '.php';
+        $xoops = \Xoops::getInstance();
+        $this->configFile = 'config.' . $this->moduleDirName . '.php';
 
-        $this->configPath = \XoopsBaseConfig::get('var-path') . '/configs/' . $this->module_dirname . '/';
+        $this->configPath = \XoopsBaseConfig::get('var-path') . '/configs/' . $this->moduleDirName . '/';
 
         $this->basicConfig = $this->loadBasicConfig();
-        $this->config      = @$this->loadConfig();
+        $this->config = @$this->loadConfig();
 
         if (count($this->config) != count($this->basicConfig)) {
             $this->config = array_merge($this->basicConfig, $this->config);
@@ -43,16 +46,14 @@ class XooSitemapPreferences
         }
     }
 
-    //    public function XooSitemapPreferences()
-    //    {
-    //        $this->__construct();
-    //    }
-
+    /**
+     * @return mixed
+     */
     public static function getInstance()
     {
         static $instance;
         if (!isset($instance)) {
-            $class    = __CLASS__;
+            $class = __CLASS__;
             $instance = new $class();
         }
 
@@ -68,7 +69,7 @@ class XooSitemapPreferences
     }
 
     /**
-     * XooSitemapPreferences::loadConfig()
+     * Xoositemap\Preferences::loadConfig()
      *
      * @return array
      */
@@ -83,7 +84,7 @@ class XooSitemapPreferences
     }
 
     /**
-     * XooSitemapPreferences::loadBasicConfig()
+     * Xoositemap\Preferences::loadBasicConfig()
      *
      * @return array
      */
@@ -97,32 +98,32 @@ class XooSitemapPreferences
     }
 
     /**
-     * XooSitemapPreferences::readConfig()
+     * Xoositemap\Preferences::readConfig()
      *
      * @return array
      */
     public function readConfig()
     {
         $file_path = $this->configPath . $this->configFile;
-        XoopsLoad::load('XoopsFile');
-        $file = XoopsFile::getHandler('file', $file_path);
+        \XoopsLoad::load('XoopsFile');
+        $file = \XoopsFile::getHandler('file', $file_path);
 
         return eval(@$file->read());
     }
 
     /**
-     * XooSitemapPreferences::writeConfig()
+     * Xoositemap\Preferences::writeConfig()
      *
      * @param  array $config
-     * @return array
+     * @return bool|null
      * @internal param string $filename
      */
     public function writeConfig($config)
     {
         if ($this->createPath($this->configPath)) {
             $file_path = $this->configPath . $this->configFile;
-            XoopsLoad::load('XoopsFile');
-            $file = XoopsFile::getHandler('file', $file_path);
+            \XoopsLoad::load('XoopsFile');
+            $file = \XoopsFile::getHandler('file', $file_path);
 
             return $file->write('return ' . var_export($config, true) . ';');
         }
@@ -137,22 +138,21 @@ class XooSitemapPreferences
      */
     private function createPath($pathname, $pathout = XOOPS_ROOT_PATH)
     {
-        $xoops    = Xoops::getInstance();
-        $pathname = substr($pathname, strlen(\XoopsBaseConfig::get('root-path')));
+        $xoops = \Xoops::getInstance();
+        $pathname = mb_substr($pathname, mb_strlen(\XoopsBaseConfig::get('root-path')));
         $pathname = str_replace(DIRECTORY_SEPARATOR, '/', $pathname);
 
-        $dest  = $pathout;
+        $dest = $pathout;
         $paths = explode('/', $pathname);
 
         foreach ($paths as $path) {
             if (!empty($path)) {
                 $dest = $dest . '/' . $path;
                 if (!is_dir($dest)) {
-                    if (!mkdir($dest, 0755)) {
+                    if (!mkdir($dest, 0755) && !is_dir($dest)) {
                         return false;
-                    } else {
-                        $this->writeIndex(\XoopsBaseConfig::get('uploads-path'), 'index.html', $dest);
                     }
+                    $this->writeIndex(\XoopsBaseConfig::get('uploads-path'), 'index.html', $dest);
                 }
             }
         }
@@ -193,12 +193,12 @@ class XooSitemapPreferences
             $data = $_POST;
         }
 
-        $config = array();
+        $config = [];
         foreach (array_keys($data) as $k) {
             if (is_array($data[$k])) {
                 $config[$k] = $this->prepare2Save($data[$k], false);
             } else {
-                if (false != strpos($k, $this->module_dirname . '_') || !$module) {
+                if (false !== mb_strpos($k, $this->moduleDirName . '_') || !$module) {
                     $config[$k] = $data[$k];
                 }
             }

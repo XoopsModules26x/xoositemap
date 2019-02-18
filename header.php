@@ -9,14 +9,14 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (https://xoops.org)
  * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @package         Xoositemap
  * @since           2.6.0
  * @author          Laurent JEN (Aka DuGris)
- */
 
-include dirname(dirname(__DIR__)) .  '/mainfile.php';
+ */
+include dirname(dirname(__DIR__)) . '/mainfile.php';
 
 $op = '';
 if (isset($_POST)) {
@@ -30,33 +30,33 @@ if (isset($_GET)) {
     }
 }
 
-$xoositemapModule = Xoositemap::getInstance();
-$sitemapConfig    = $xoositemapModule->loadConfig();
+$helper = \XoopsModules\Xoositemap\Helper::getInstance();
+$sitemapConfig = $helper->loadConfig();
 
-if ($op != '') {
+if ('' != $op) {
     $modules[] = $op;
 } else {
     $modules = $sitemapConfig['xoositemapModule'];
 }
-$xoops = Xoops::getInstance();
+$xoops = \Xoops::getInstance();
 $xoops->header('xoositemap_index.tpl');
 $xoops->theme()->addStylesheet('modules/xoositemap/assets/css/module.css');
 
-$sitemap = array();
+$sitemap = [];
 foreach ($modules as $k => $mod) {
-    $moduleObj = $xoops->module->getByDirName($mod);
+    $moduleObj = $xoops->module->getByDirname($mod);
 
     $plugin = \Xoops\Module\Plugin::getPlugin($moduleObj->getVar('dirname'), 'xoositemap');
     if (is_object($plugin)) {
         $results = $plugin->Xoositemap($sitemapConfig['xoositemap_subcat']);
 
-        $sitemap[$k]['name']    = $moduleObj->getVar('name');
+        $sitemap[$k]['name'] = $moduleObj->getVar('name');
         $sitemap[$k]['dirname'] = $moduleObj->getVar('dirname');
-        $sitemap[$k]['image']   = \XoopsBaseConfig::get('url')  . '/modules/' . $moduleObj->getVar('dirname') . '/assets/icons/logo_large.png';
+        $sitemap[$k]['image'] = \XoopsBaseConfig::get('url') . '/modules/' . $moduleObj->getVar('dirname') . '/assets/icons/logo_large.png';
 
         if (count($results) > 0) {
             foreach (array_keys($results) as $i) {
-                $results[$i]['date'] = XoopsLocale::formatTimestamp($results[$i]['time'], 's');
+                $results[$i]['date'] = \XoopsLocale::formatTimestamp($results[$i]['time'], 's');
             }
             $sitemap[$k]['sitemap'] = $results;
 
@@ -67,7 +67,6 @@ foreach ($modules as $k => $mod) {
                 }
             }
         }
-
     }
 }
 
