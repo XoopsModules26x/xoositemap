@@ -53,7 +53,7 @@ class PreferencesForm extends \Xoops\Form\ThemeForm
          */
         $tab2 = new \Xoops\Form\Tab(_XOO_CONFIG_MODULES, 'tabid-2');
         $systemModule = new \SystemModule();
-        $installed = $systemModule->getModuleList();
+        $installed    = $systemModule->getModuleList();
         $modules = new \Xoops\Form\Select(_XOO_CONFIG_MODULES_SELECT, 'xoositemapModule', $xoositemapModule, count($installed) - 1, true);
         foreach ($installed as $module) {
             $plugin = \Xoops\Module\Plugin::getPlugin($module->getVar('dirname'), 'xoositemap');

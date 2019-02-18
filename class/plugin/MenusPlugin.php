@@ -45,7 +45,7 @@ class MenusPlugin extends \Xoops\Module\Plugin\PluginAbstract implements \MenusP
                 foreach ($sitemapConfig['xoositemapModule'] as $k => $module) {
                     $menu = $xoops->module->getByDirname($module);
                     $ret[$i]['name'] = $menu->getVar('name');
-                    $ret[$i]['url'] = 'index.php?op=' . $module;
+                    $ret[$i]['url']  = 'index.php?op=' . $module;
                     ++$i;
                 }
             }

@@ -16,7 +16,7 @@
  * @author          Laurent JEN (Aka DuGris)
 
  */
-include dirname(dirname(__DIR__)) . '/mainfile.php';
+include dirname(dirname(__DIR__)) .  '/mainfile.php';
 
 $op = '';
 if (isset($_POST)) {
@@ -50,9 +50,9 @@ foreach ($modules as $k => $mod) {
     if (is_object($plugin)) {
         $results = $plugin->Xoositemap($sitemapConfig['xoositemap_subcat']);
 
-        $sitemap[$k]['name'] = $moduleObj->getVar('name');
+        $sitemap[$k]['name']    = $moduleObj->getVar('name');
         $sitemap[$k]['dirname'] = $moduleObj->getVar('dirname');
-        $sitemap[$k]['image'] = \XoopsBaseConfig::get('url') . '/modules/' . $moduleObj->getVar('dirname') . '/assets/icons/logo_large.png';
+        $sitemap[$k]['image']   = \XoopsBaseConfig::get('url')  . '/modules/' . $moduleObj->getVar('dirname') . '/assets/icons/logo_large.png';
 
         if (count($results) > 0) {
             foreach (array_keys($results) as $i) {
