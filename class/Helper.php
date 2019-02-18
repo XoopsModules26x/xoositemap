@@ -1,5 +1,7 @@
 <?php
 
+namespace XoopsModules\Xoositemap;
+
 /**
  * Xoositemap module
  *
@@ -10,13 +12,14 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (https://xoops.org)
  * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @package         Xoositemap
  * @since           2.6.0
  * @author          Laurent JEN (Aka DuGris)
+ * @version         $Id: xoositemap.php 1396 2012-12-30 07:36:38Z DuGris $
  */
-class Xoositemap extends Xoops\Module\Helper\HelperAbstract
+class Helper extends \Xoops\Module\Helper\HelperAbstract
 {
     /**
      * Init the module
@@ -34,9 +37,24 @@ class Xoositemap extends Xoops\Module\Helper\HelperAbstract
      */
     public function loadConfig()
     {
-        XoopsLoad::load('xoopreferences', $this->_dirname);
+        return \XoopsModules\Xoositemap\Preferences::getInstance()->getConfig();
+    }
 
-        return XooSitemapPreferences::getInstance()->getConfig();
+    /**
+     * Get an Object Handler
+     *
+     * @param string $name name of handler to load
+     *
+     * @return bool|\XoopsObjectHandler|\XoopsPersistableObjectHandler
+     */
+    public function getHandler($name)
+    {
+        $ret = false;
+        //        /** @var Connection $db */
+        $db = \XoopsDatabaseFactory::getConnection();
+        $class = '\\XoopsModules\\' . ucfirst(mb_strtolower(basename(dirname(__DIR__)))) . '\\' . $name . 'Handler';
+        $ret = new $class($db);
 
+        return $ret;
     }
 }

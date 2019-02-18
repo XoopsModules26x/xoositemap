@@ -9,19 +9,19 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright       The XOOPS Project http://sourceforge.net/projects/xoops/
+ * @copyright       XOOPS Project (https://xoops.org)
  * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @package         Xoositemap
  * @since           2.6.0
  * @author          Laurent JEN (Aka DuGris)
- */
 
+ */
 $i                      = 0;
 $adminmenu[$i]['title'] = _MI_XOO_SITEMAP_INDEX;
 $adminmenu[$i]['link']  = 'admin/index.php';
 $adminmenu[$i]['icon']  = 'home.png';
 
-$xoops = Xoops::getInstance();
+$xoops = \Xoops::getInstance();
 if ($xoops->isAdmin()) {
     ++$i;
     $adminmenu[$i]['title'] = _MI_XOO_SITEMAP_PREFERENCES;
